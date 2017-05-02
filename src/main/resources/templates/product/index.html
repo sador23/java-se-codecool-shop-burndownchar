@@ -34,8 +34,21 @@
 </div>
 
 <div class="container">
-    <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Category
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li th:each="cat,iterationStatus  : ${categories}" th:text="${cat.name}">Supplier Name</li>
+        </ul>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Supplier
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="" th:each="sup,iterationStatus  : ${suppliers}" th:text="${sup.name}">Supplier Name</li>
+        </ul>
     </div>
 
     <div id="products" class="row list-group">
