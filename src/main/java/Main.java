@@ -22,7 +22,9 @@ public class Main {
         populateData();
 
         // Always start with more specific routes
-        get("/hello", (req, res) -> "Hello World");
+        get("/cart", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render( ProductController.renderCart(req, res) );
+        });
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
