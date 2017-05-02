@@ -47,4 +47,9 @@ public class ProductController {
         params.put("products", productDataStore.getBy(supplierDataStore.find(searchedId)));
         return new ModelAndView(params, "product/index");
     }
+
+    public static ModelAndView renderCheckoutForm(Request req, Response res) {
+        Map params = new HashMap<>();
+        return new ModelAndView(params, "product/checkout");
+    }
 }

@@ -35,6 +35,9 @@ public class Main {
 
         get("/suppliers/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
+        get("/checkout", ProductController::renderCheckoutForm, new ThymeleafTemplateEngine());
+
+
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
