@@ -39,7 +39,8 @@
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Category
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li th:each="cat,iterationStatus  : ${categories}" th:text="${cat.name}">Supplier Name</li>
+            <li th:each="cat,iterationStatus  : ${categories}"><a th:text="${cat.name}" th:href="@{~/categories/{path}(path=${cat.id})}">Category Name</a>
+            </li>
         </ul>
     </div>
 
@@ -47,7 +48,8 @@
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Supplier
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li class="" th:each="sup,iterationStatus  : ${suppliers}" th:text="${sup.name}">Supplier Name</li>
+        <li th:each="sup,iterationStatus  : ${suppliers}"><a th:text="${sup.name}" th:href="@{~/suppliers/{path}(path=${sup.id})}">Supplier Name</a>
+        </li>
         </ul>
     </div>
 
