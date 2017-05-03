@@ -6,6 +6,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Person;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -25,6 +26,10 @@ public class ProductController {
     static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
     static Map params = new HashMap<>();
 
+    private static Map params;
+
+
+
     public static ModelAndView renderProducts(Request req, Response res) {
 
         params.put("suppliers",supplierDataStore.getAll());
@@ -33,6 +38,48 @@ public class ProductController {
         params.put("products", productDataStore.getAll());
         return new ModelAndView(params, "product/index");
     }
+
+
+    public static ModelAndView renderCart(Request req, Response res){
+        Map params= new HashMap<>();
+        List<Person> persons=new ArrayList<>();
+        persons.add(new Person("sonka",1,1,1));
+        persons.add(new Person("sali",3,2,1));
+        persons.add(new Person("hagyma",2,2,1));
+        persons.add(new Person("torma",1,1,1));
+        persons.add(new Person("alma",1,1,1));
+        int sum=persons.stream().mapToInt(n->n.price * n.qual).sum();
+        params.put("persons",persons);
+        params.put("sum",sum);
+        return new ModelAndView(params,"product/cart");
+    }
+
+
+
+    public static ModelAndView deleteItem(Request req, Response res){
+        String name=req.params(":id");
+        Map params= new HashMap<>();
+        List<Person> persons=new ArrayList<>();
+        persons.add(new Person("sonka",1,1,1));
+        persons.add(new Person("sali",3,2,1));
+        persons.add(new Person("hagyma",2,2,1));
+        persons.add(new Person("torma",1,1,1));
+        persons.add(new Person("alma",1,1,1));
+        int sum=persons.stream().mapToInt(n->n.price * n.qual).sum();
+
+        params.put("sum",sum);
+
+        for(Person person:persons){
+            if(person.id==Integer.parseInt(name)){
+                persons.remove(person);
+            }
+        }
+
+        params.put("persons",persons);
+
+        return new ModelAndView(params,"product/cart");
+    }
+
 
     public static ModelAndView renderProductsByCategory(Request req, Response res) {
         int searchedId = Integer.parseInt(req.params(":id"));
@@ -47,4 +94,5 @@ public class ProductController {
         params.put("products", productDataStore.getBy(supplierDataStore.find(searchedId)));
         return new ModelAndView(params, "product/index");
     }
+
 }
