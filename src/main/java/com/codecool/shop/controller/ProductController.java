@@ -26,8 +26,6 @@ public class ProductController {
     static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
     static Map params = new HashMap<>();
 
-    private static Map params;
-
 
 
     public static ModelAndView renderProducts(Request req, Response res) {
