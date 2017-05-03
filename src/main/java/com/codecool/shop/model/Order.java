@@ -12,9 +12,27 @@ public class Order {
     private Currency defaultCurrency;
 
     public Order() {
+        this.status = "new";
+        this.items = new ArrayList<>();
+        this.totalPrice = 0;
+        this.defaultCurrency = Currency.getInstance("USD");
     }
+
+
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addLineItem(LineItem lineItem) {
+        items.add(lineItem);
+
+    }
+
+    public float getTotalPrice() {
+        for (LineItem item: items) {
+            this.totalPrice += item.getPrice() * item.getQuantity();
+        }
+        return totalPrice;
     }
 }

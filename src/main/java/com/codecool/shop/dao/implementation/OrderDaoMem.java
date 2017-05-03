@@ -1,6 +1,7 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.Orderable;
+import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 
 import java.util.ArrayList;
@@ -8,10 +9,13 @@ import java.util.List;
 
 
 public class OrderDaoMem implements Orderable {
-    private List<Order> DATA = new ArrayList<>();
+    private static List<Order> orders = new ArrayList<>();
     private static OrderDaoMem instance = null;
+    private Order order;
 
     public OrderDaoMem() {
+        this.order = new Order();
+        OrderDaoMem.orders.add(this.order);
     }
 
     public static OrderDaoMem getInstance() {
@@ -22,9 +26,9 @@ public class OrderDaoMem implements Orderable {
     }
 
     @Override
-    public void add (Order order){
-        order.setId(DATA.size() + 1);
-        DATA.add(order);
+    public void add (LineItem lineItem){
+        order.addLineItem(lineItem);
+
     }
 
 
@@ -40,6 +44,7 @@ public class OrderDaoMem implements Orderable {
 
     @Override
     public List<Order> getAll() {
-        return null;
+        return OrderDaoMem.orders;
+
     }
 }
