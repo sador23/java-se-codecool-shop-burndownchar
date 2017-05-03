@@ -31,6 +31,10 @@ public class Main {
            return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
         });
 
+        get("/categories/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
+
+        get("/suppliers/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
+
         // Add this line to your project to enable the debug screen
         enableDebugScreen();
     }
