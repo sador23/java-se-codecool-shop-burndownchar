@@ -1,6 +1,7 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+import com.codecool.shop.controller.CheckoutController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
@@ -35,7 +36,7 @@ public class Main {
 
         get("/suppliers/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
-        get("/checkout", ProductController::renderCheckoutForm, new ThymeleafTemplateEngine());
+        get("/checkout", CheckoutController::renderCheckoutForm, new ThymeleafTemplateEngine());
 
 
         // Add this line to your project to enable the debug screen

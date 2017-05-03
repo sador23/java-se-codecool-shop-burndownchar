@@ -48,8 +48,4 @@ public class ProductController {
         return new ModelAndView(params, "product/index");
     }
 
-    public static ModelAndView renderCheckoutForm(Request req, Response res) {
-        Map params = new HashMap<>();
-        return new ModelAndView(params, "product/checkout");
-    }
 }
