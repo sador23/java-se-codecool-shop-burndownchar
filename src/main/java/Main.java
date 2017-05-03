@@ -26,6 +26,18 @@ public class Main {
             return new ThymeleafTemplateEngine().render( ProductController.renderCart(req, res) );
         });
 
+
+
+
+        get("/cart/edit/:id", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render( ProductController.renderCart(req, res) );
+        });
+
+        get("/cart/delete/:id", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render( ProductController.deleteItem(req, res) );
+        });
+
+
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         // Equivalent with above

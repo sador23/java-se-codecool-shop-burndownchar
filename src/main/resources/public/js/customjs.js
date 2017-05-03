@@ -17,8 +17,15 @@ $(function() {
 
 	pop.on('click', function(e) {
 		pop.popover('toggle');
+		document.getElementById("delete-item").href="/cart/delete/"  + $(this).attr('name');
+        document.getElementById("edit-item").name="/cart/edit/"  + $(this).attr('name');
 		pop.not(this).popover('hide');
 	});
+
+	document.getElementById("edit-item").onclick(function () {
+        $('#myModal').modal('show');
+
+    })
 
 	$(window).on('resize', function() {
 		pop.popover('hide');

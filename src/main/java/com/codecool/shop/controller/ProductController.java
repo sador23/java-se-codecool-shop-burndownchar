@@ -22,6 +22,10 @@ import java.util.Map;
 
 public class ProductController {
 
+    private static Map params;
+
+
+
     public static ModelAndView renderProducts(Request req, Response res) {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
@@ -40,9 +44,35 @@ public class ProductController {
         persons.add(new Person("hagyma",2,2,1));
         persons.add(new Person("torma",1,1,1));
         persons.add(new Person("alma",1,1,1));
-         int sum=persons.stream().mapToInt(n->n.price * n.qual).sum();
+        int sum=persons.stream().mapToInt(n->n.price * n.qual).sum();
         params.put("persons",persons);
         params.put("sum",sum);
+        return new ModelAndView(params,"product/cart");
+    }
+
+
+
+    public static ModelAndView deleteItem(Request req, Response res){
+        String name=req.params(":id");
+        Map params= new HashMap<>();
+        List<Person> persons=new ArrayList<>();
+        persons.add(new Person("sonka",1,1,1));
+        persons.add(new Person("sali",3,2,1));
+        persons.add(new Person("hagyma",2,2,1));
+        persons.add(new Person("torma",1,1,1));
+        persons.add(new Person("alma",1,1,1));
+        int sum=persons.stream().mapToInt(n->n.price * n.qual).sum();
+
+        params.put("sum",sum);
+
+        for(Person person:persons){
+            if(person.id==Integer.parseInt(name)){
+                persons.remove(person);
+            }
+        }
+
+        params.put("persons",persons);
+
         return new ModelAndView(params,"product/cart");
     }
 

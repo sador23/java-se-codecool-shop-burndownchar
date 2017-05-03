@@ -50,7 +50,7 @@
 						<span class="quantity" th:text="${person.qual}"></span>
 						<span class="itemName" th:text="${person.name}"></span>
 						<span class="priceperitem" th:text="${person.priceper}"></span>
-						<span class="popbtn"><a class="arrow"></a></span>
+						<span class="popbtn" th:name="${person.id}"><a class="arrow"></a></span>
 						<span class="price" th:text="${person.price * person.qual}"></span>
 					</li>
 					</div>
@@ -67,8 +67,28 @@
 		<!-- The popover content -->
 
 		<div id="popover" style="display: none">
-			<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-			<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+			<a href="#" id="edit-item"><span class="glyphicon glyphicon-pencil"></span></a>
+			<a href="#" id="delete-item"><span class="glyphicon glyphicon-remove"></span></a>
+		</div>
+
+
+
+		<div class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Title</h4>
+					</div>
+					<div class="modal-body">
+						<p>Body&hellip;</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Submit</button>
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<!-- JavaScript includes -->
