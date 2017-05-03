@@ -4,6 +4,9 @@ package com.codecool.shop.model;
  * Created by tomi on 2017.05.03..
  */
 public class Person1 {
+    static int personIdCounter = 0;
+
+    public int id;
     public String firstName;
     public String lastName;
     public String phoneNumber;
@@ -22,6 +25,9 @@ public class Person1 {
     public Person1(String firstName, String lastName, String phoneNumber, String emailAddress,
                    String shippingCountry, String shippingCity, String shippingZipCode, String shippingAddress,
                    String billingCountry, String billingCity, String billingZipCode, String billingAddress) {
+
+        this.id = personIdCounter + 1;
+        personIdCounter += 1;
 
         this.firstName = firstName;
         this.lastName = lastName;
