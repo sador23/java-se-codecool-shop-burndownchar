@@ -21,20 +21,24 @@ import java.util.List;
 import java.util.Map;
 
 public class ProductController {
+    static ProductDao productDataStore = ProductDaoMem.getInstance();
+    static ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
+    static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+    static Map params = new HashMap<>();
 
     private static Map params;
 
 
 
     public static ModelAndView renderProducts(Request req, Response res) {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
 
-        Map params = new HashMap<>();
+        params.put("suppliers",supplierDataStore.getAll());
+        params.put("categories",productCategoryDataStore.getAll());
         params.put("category", productCategoryDataStore.find(1));
-        params.put("products", productDataStore.getBy(productCategoryDataStore.find(1)));
+        params.put("products", productDataStore.getAll());
         return new ModelAndView(params, "product/index");
     }
+
 
     public static ModelAndView renderCart(Request req, Response res){
         Map params= new HashMap<>();
@@ -74,6 +78,21 @@ public class ProductController {
         params.put("persons",persons);
 
         return new ModelAndView(params,"product/cart");
+    }
+
+
+    public static ModelAndView renderProductsByCategory(Request req, Response res) {
+        int searchedId = Integer.parseInt(req.params(":id"));
+
+        params.put("products", productDataStore.getBy(productCategoryDataStore.find(searchedId)));
+        return new ModelAndView(params, "product/index");
+    }
+
+    public static ModelAndView renderProductsBySupplier(Request req, Response res) {
+        int searchedId = Integer.parseInt(req.params(":id"));
+
+        params.put("products", productDataStore.getBy(supplierDataStore.find(searchedId)));
+        return new ModelAndView(params, "product/index");
     }
 
 }
