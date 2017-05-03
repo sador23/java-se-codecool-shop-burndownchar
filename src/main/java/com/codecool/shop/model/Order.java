@@ -9,12 +9,14 @@ public class Order {
     private String status;
     private ArrayList<LineItem> items;
     private float totalPrice;
+    private int totalQuantity;
     private Currency defaultCurrency;
 
     public Order() {
         this.status = "new";
         this.items = new ArrayList<>();
         this.totalPrice = 0;
+        this.totalQuantity = 0;
         this.defaultCurrency = Currency.getInstance("USD");
     }
 
@@ -34,5 +36,12 @@ public class Order {
             this.totalPrice += item.getPrice() * item.getQuantity();
         }
         return totalPrice;
+    }
+
+    public int getTotalQuantity() {
+        for (LineItem item: items) {
+            totalQuantity += 1;
+        }
+        return totalQuantity;
     }
 }
