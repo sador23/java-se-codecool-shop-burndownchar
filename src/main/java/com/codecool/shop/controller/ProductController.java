@@ -22,6 +22,7 @@ public class ProductController {
     static ProductDao productDataStore = ProductDaoMem.getInstance();
     static ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
     static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+    static OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
     static Map params = new HashMap<>();
 
 
@@ -33,8 +34,10 @@ public class ProductController {
         params.put("categories",productCategoryDataStore.getAll());
         params.put("category", productCategoryDataStore.find(1));
         params.put("products", productDataStore.getAll());
+        params.put("quantity", orderDaoMem.getOrder().getTotalQuantity());
         return new ModelAndView(params, "product/index");
     }
+
 
     public static ModelAndView renderCart(Request req, Response res){
         Map params= new HashMap<>();
@@ -88,4 +91,5 @@ public class ProductController {
         params.put("products", productDataStore.getBy(supplierDataStore.find(searchedId)));
         return new ModelAndView(params, "product/index");
     }
+
 }

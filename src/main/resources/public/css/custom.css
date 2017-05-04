@@ -58,6 +58,14 @@
     margin: 0 0 11px;
 }
 
+.fa-shopping-cart {
+	color: white;
+}
+
+.fa-shopping-cart:hover {
+	color: red;
+}
+
 
 
 

@@ -1,6 +1,8 @@
 import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
+
+import com.codecool.shop.controller.CheckoutController;
 import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductController;
 import com.codecool.shop.dao.*;
@@ -24,18 +26,16 @@ public class Main {
 
         // Always start with more specific routes
         get("/cart", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render( ProductController.renderCart(req, res) );
+            return new ThymeleafTemplateEngine().render(ProductController.renderCart(req, res));
         });
-
-
-
 
         post("/cart/edit/:id", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.editItem(req, res) );
+
         });
 
         get("/cart/delete/:id", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render( ProductController.deleteItem(req, res) );
+            return new ThymeleafTemplateEngine().render(ProductController.deleteItem(req, res));
         });
 
 
@@ -43,8 +43,15 @@ public class Main {
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         // Equivalent with above
         get("/index", (Request req, Response res) -> {
-           return new ThymeleafTemplateEngine().render( ProductController.renderProducts(req, res) );
+            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
+
+        get ("/:id", (req, res) -> {
+            res.redirect("/");
+            OrderController.addProductToOrder(req, res);
+            return null;
+        });
+
 
         get ("/:id", (req, res) -> {
 //            res.redirect("/");
@@ -55,8 +62,19 @@ public class Main {
 
         get("/suppliers/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
-        // Add this line to your project to enable the debug screen
-        enableDebugScreen();
+        get("/order/checkout", CheckoutController::renderCheckoutForm, new ThymeleafTemplateEngine());
+
+        post("/order/checkout/done", (request, response) -> {
+            Person1 person = new Person1(request.queryParams("first_name"), request.queryParams("last_name"),
+                    request.queryParams("phone_number"), request.queryParams("email_address"),
+                    request.queryParams("shipping-country"), request.queryParams("shipping-city"),
+                    request.queryParams("shipping-zip-code"), request.queryParams("shipping-address"),
+                    request.queryParams("billing-country"), request.queryParams("billing-city"),
+                    request.queryParams("billing-zip_code"), request.queryParams("billing-address"));
+            response.redirect("/order/payment");
+            return person;
+        });
+
     }
 
     public static void populateData() {

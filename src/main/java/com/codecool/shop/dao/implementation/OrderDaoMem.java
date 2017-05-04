@@ -36,6 +36,12 @@ public class OrderDaoMem implements Orderable {
 
     }
 
+
+    public Order getOrder() {
+        return order;
+    }
+
+
     @Override
     public Order find(int id) {
         return null;

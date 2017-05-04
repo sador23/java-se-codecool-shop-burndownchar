@@ -59,7 +59,7 @@
 					<li class="row totals">
 						<span class="itemName">Total:</span>
 						<span class="price" th:text="${sum}"></span>
-						<span class="order"> <a class="text-center">ORDER</a></span>
+						<span class="order"> <a class="text-center" href="/order/checkout">ORDER</a></span>
 					</li>
 				</ul>
 			</div>
@@ -92,7 +92,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<div th:replace="footer :: copy"></div>
 		<!-- JavaScript includes -->
 
 		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
