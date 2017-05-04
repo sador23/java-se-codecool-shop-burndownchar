@@ -31,13 +31,9 @@ $(function() {
             data: {"id" : name, "quantity":id.val()},
             dataType: "html",
             success: function() {
-            	alert("Szia!!");
-                console.log("Nice");
             },
             timeout:1500,
 			error:function () {
-            	alert("not good!");
-
             }
         });
     })
@@ -50,7 +46,6 @@ $(function() {
 	pop.on('click', function(e) {
 		pop.popover('toggle');
 		document.getElementById("delete-item").href="/cart/delete/"  + $(this).attr('name');
-        //document.getElementById("edit-item").name="/cart/edit/"  + $(this).attr('name');
 		pop.not(this).popover('hide');
 	});
     }, 1000);
