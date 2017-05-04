@@ -1,6 +1,5 @@
 package com.codecool.shop.model;
 
-import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -13,6 +12,7 @@ public class Order {
     private float totalPrice;
     private int totalQuantity;
     private Currency defaultCurrency;
+    private Person owner;
 
     public Order() {
         this.status = "new";
@@ -20,6 +20,7 @@ public class Order {
         this.totalPrice = 0;
         this.totalQuantity = 0;
         this.defaultCurrency = Currency.getInstance("USD");
+
     }
 
     public List<LineItem>getAll(){
@@ -47,5 +48,13 @@ public class Order {
     public int getTotalQuantity() {
         this.totalQuantity=items.stream().mapToInt(n->n.getQuantity()).sum();
         return totalQuantity;
+    }
+
+    public void setOwner(Person owner){
+        this.owner=owner;
+    }
+
+    public void setStatus(String status){
+        this.status=status;
     }
 }

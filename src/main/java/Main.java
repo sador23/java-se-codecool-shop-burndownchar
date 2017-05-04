@@ -53,11 +53,6 @@ public class Main {
         });
 
 
-        get ("/:id", (req, res) -> {
-//            res.redirect("/");
-            return new ThymeleafTemplateEngine().render( OrderController.addProductToOrder(req, res) );
-        });
-
         get("/categories/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         get("/suppliers/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
@@ -65,14 +60,7 @@ public class Main {
         get("/order/checkout", CheckoutController::renderCheckoutForm, new ThymeleafTemplateEngine());
 
         post("/order/checkout/done", (request, response) -> {
-            Person1 person = new Person1(request.queryParams("first_name"), request.queryParams("last_name"),
-                    request.queryParams("phone_number"), request.queryParams("email_address"),
-                    request.queryParams("shipping-country"), request.queryParams("shipping-city"),
-                    request.queryParams("shipping-zip-code"), request.queryParams("shipping-address"),
-                    request.queryParams("billing-country"), request.queryParams("billing-city"),
-                    request.queryParams("billing-zip_code"), request.queryParams("billing-address"));
-            response.redirect("/order/payment");
-            return person;
+            return new ThymeleafTemplateEngine().render( OrderController.addPerson(request, response) );
         });
 
     }
