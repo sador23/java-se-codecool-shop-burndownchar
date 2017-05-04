@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Checkout</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+</head>
+
+<body>
+<nav th:replace="header :: header"></nav>
+
+<div class="container-fluid breadcrumbBox text-center">
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">Order</a></li>
+        <li class="active"><a href="#">Checkout</a></li>
+        <li><a href="#">Payment</a></li>
+    </ol>
+</div>
+
+<form class="form-horizontal" method="post" action="/order/checkout/done">
+    <div class="col-lg-8 col-lg-offset-2"  >
+        <div class="panel panel-info">
+            <div class="panel-heading">Checkout</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4>Personal Information</h4>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6 col-xs-12">
+                        <strong>First Name:</strong>
+                        <input type="text" name="first_name" id="first_name" class="form-control" value=""
+                               required="required"/>
+                    </div>
+                    <div class="span1"></div>
+                    <div class="col-md-6 col-xs-12">
+                        <strong>Last Name:</strong>
+                        <input type="text" name="last_name" id="last_name" class="form-control" value="" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Phone Number:</strong></div>
+                    <div class="col-md-12"><input type="text" name="phone_number" id="phone_number" class="form-control" value=""
+                                                  required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Email Address:</strong></div>
+                    <div class="col-md-12"><input type="email" name="email_address" id="email_address"
+                                                  class="form-control" value=""
+                                                  required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4>Shipping Address</h4>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Country:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" name="shipping-country" id="shipping-country" value="" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>City:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="shipping-city" id="shipping-city" class="form-control" value="" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Zip / Postal Code:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="shipping-zip_code" id="shipping-zip_code" class="form-control" value="" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Address:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="shipping-address" id="shipping-address" class="form-control" value="" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <h4>Billing Address</h4>
+                        <label><input type="checkbox" id="same_as_shipping"/> Same as shipping</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Country:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" name="billing-country" id="billing-country" value="" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>City:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="billing-city" id="billing-city" class="form-control" value="" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Zip / Postal Code:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="billing-zip_code" id="billing-zip_code" class="form-control" value="" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12"><strong>Address:</strong></div>
+                    <div class="col-md-12">
+                        <input type="text" name="billing-address" id="billing-address" class="form-control" value="" required="required"/>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">To Payment</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/customjs.js"></script>
+</body>
+</html>

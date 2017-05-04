@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Payment</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+</head>
+<body>
+<nav th:replace="header :: header"></nav>
+
+<div class="container-fluid breadcrumbBox text-center">
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">Order</a></li>
+        <li><a href="#">Checkout</a></li>
+        <li class="active"><a href="#">Payment</a></li>
+    </ol>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Credit Card Payment
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form id="credit_card_form" method="post" action="/order/payment/done">
+                        <div class="form-group">
+                            <label for="cardNumber">
+                                CARD NUMBER</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cardNumber"
+                                       placeholder="Valid Card Number"/>
+                                <span class="input-group-addon"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardHolder">
+                                CARD HOLDER</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cardHolder"
+                                       placeholder="Card Holder"/>
+                                <span class="input-group-addon"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="expityMonth">
+                                        EXPIRY DATE</label>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-lg-6">
+                                            <input type="text" class="form-control" id="expityMonth" placeholder="MM"/>
+                                        </div>
+                                        <div class="col-xs-6 col-lg-6">
+                                            <input type="text" class="form-control" id="expityYear" placeholder="YY"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-md-6 pull-right">
+                                <div class="form-group">
+                                    <label for="cvCode">
+                                        CV CODE</label>
+                                    <input type="password" class="form-control" id="cvCode" placeholder="CV"/>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Pay with Credit Card</button>
+                    </form>
+                </div>
+            </div>
+            <br/>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        PayPal Payment
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form id="paypal_form" method="post" action="/order/payment/done">
+                        <div class="form-group">
+                            <label for="userNamer">
+                                PAYPAL USERNAME</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="userNamer"
+                                       placeholder="email or username"/>
+                                <span class="input-group-addon"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">
+                                PAYPAL PASSWORD</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" placeholder="password"/>
+                                <span class="input-group-addon"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Pay with PayPal</button>
+                    </form>
+                </div>
+            </div>
+            <br/>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/customjs.js"></script>
+</body>
+</html>

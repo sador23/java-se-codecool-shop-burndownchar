@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Shopping Cart</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+	</head>
+
+	<body>
+		
+		<nav class="navbar">
+			<div class="container">
+				<a class="navbar-brand" href="#">Welcome to Burndownchart's webshop</a>
+				<div class="navbar-right">
+					<div class="container minicart"></div>
+				</div>
+			</div>
+		</nav>
+		
+		<div class="container-fluid breadcrumbBox text-center">
+			<ol class="breadcrumb">
+				<li><a href="/">Home</a></li>
+				<li class="active"><a href="#">Order</a></li>
+				<li><a href="#">Checkout</a></li>
+				<li><a href="#">Payment</a></li>
+			</ol>
+		</div>
+		
+		<div class="container text-center">
+
+			<div class="col-md-5 col-sm-12">
+				<div class="bigcart"></div>
+				<h1>Your shopping cart</h1>
+			</div>
+			
+			<div class="col-md-7 col-sm-12 text-left">
+				<ul>
+					<li class="row list-inline columnCaptions">
+						<span>QTY</span>
+						<span>ITEM</span>
+						<span>Price/item</span>
+						<span>Price</span>
+					</li>
+
+					<div th:each="product : ${products}">
+					<li class="row">
+						<span class="quantity"><form th:id="'inpn'+${product.getId()}+''" th:name="${product.getId()}" >
+							<input data-toggle="tooltip" data-placement="left" title="You can modify the quantity here and press enter if you're done" th:id="${product.getId()}" th:placeholder="${product.quantity}" /></form></span>
+
+						<!--<span class="quantity" th:text="${product.quantity}"></span>-->
+						<span class="itemName" th:text="${product.getName()}"></span>
+						<span class="priceperitem" th:text="${product.price}"></span>
+						<a class="popbtn" th:name="${product.getId()}" > <a class="arrow"></a></a>
+						<span class="price" th:text="${product.price * product.quantity}"></span>
+					</li>
+					</div>
+					<li class="row totals">
+						<span class="itemName">Total:</span>
+						<span class="price" th:text="${sum}"></span>
+						<span class="order"> <a class="text-center" href="/order/checkout">ORDER</a></span>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<!-- The popover content -->
+
+		<div id="popover" style="display:none;">
+			<a href="" id="edit-item"><span class="glyphicon glyphicon-pencil"></span></a>
+			<a href="" id="delete-item"><span class="glyphicon glyphicon-remove"></span></a>
+		</div>
+
+
+
+		<div class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Title</h4>
+					</div>
+					<div class="modal-body">
+						<p>Body&hellip;</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="footer :: copy"></div>
+		<!-- JavaScript includes -->
+
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+				integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/customjs.js"></script>
+
+	</body>
+</html>
