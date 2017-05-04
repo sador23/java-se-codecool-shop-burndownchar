@@ -28,14 +28,16 @@
 </head>
 
 <body>
-<nav class="navbar">
-    <div class="container">
-        <a class="navbar-brand" href="#">Welcome to Burndownchart's webshop</a>
-        <div class="navbar-right">
-            <div class="container minicart"></div>
-        </div>
-    </div>
-</nav>
+<!--<nav class="navbar">-->
+    <!--<div class="container">-->
+        <!--<a class="navbar-brand" href="#">Welcome to Burndownchart's webshop</a>-->
+        <!--<div class="navbar-right">-->
+            <!--<div class="container minicart"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</nav>-->
+
+<nav th:replace="header :: header"></nav>
 
 <div class="container-fluid breadcrumbBox text-center">
     <ol class="breadcrumb">
@@ -47,7 +49,7 @@
 </div>
 
 <form class="form-horizontal" method="post" action="/order/checkout/done">
-    <div class="col-lg-8">
+    <div class="col-lg-8 col-lg-offset-2"  >
         <div class="panel panel-info">
             <div class="panel-heading">Checkout</div>
             <div class="panel-body">
@@ -145,5 +147,6 @@
         </div>
     </div>
 </form>
+<!--<div th:replace="footer :: copy"></div>-->
 </body>
 </html>

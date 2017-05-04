@@ -3,6 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
@@ -24,6 +25,7 @@ public class ProductController {
     static ProductDao productDataStore = ProductDaoMem.getInstance();
     static ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
     static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+    static OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
     static Map params = new HashMap<>();
 
 
@@ -34,6 +36,7 @@ public class ProductController {
         params.put("categories",productCategoryDataStore.getAll());
         params.put("category", productCategoryDataStore.find(1));
         params.put("products", productDataStore.getAll());
+        params.put("quantity", orderDaoMem.getOrder().getTotalQuantity());
         return new ModelAndView(params, "product/index");
     }
 

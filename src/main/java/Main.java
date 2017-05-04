@@ -46,10 +46,10 @@ public class Main {
             return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
         });
 
-
-        get("/:id", (req, res) -> {
-//            res.redirect("/");
-            return new ThymeleafTemplateEngine().render(OrderController.addProductToOrder(req, res));
+        get ("/:id", (req, res) -> {
+            res.redirect("/");
+            OrderController.addProductToOrder(req, res);
+            return null;
         });
 
         get("/categories/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
