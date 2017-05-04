@@ -51,3 +51,22 @@ $(function() {
 	});
 
 });
+
+$(document).ready(function() {
+    $('#same_as_shipping').click(function () {
+        if ($('#same_as_shipping').is(':checked')) {
+            $('#billing-country').val($('#shipping-country').val());
+            $('#billing-city').val($('#shipping-city').val());
+            $('#billing-zip_code').val($('#shipping-zip_code').val());
+            $('#billing-address').val($('#shipping-address').val());
+
+        } else {
+            $('#billing-country').val("");
+            $('#billing-city').val("");
+            $('#billing-zip_code').val("");
+            $('#billing-address').val("");
+        }
+        ;
+
+    });
+});
