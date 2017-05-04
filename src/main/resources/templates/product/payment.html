@@ -10,113 +10,104 @@
     <link rel="stylesheet" type="text/css" href="/css/custom.css"/>
 </head>
 <body>
+<nav th:replace="header :: header"></nav>
+<div class="container-fluid breadcrumbBox text-center">
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">Order</a></li>
+        <li><a href="#">Checkout</a></li>
+        <li class="active"><a href="#">Payment</a></li>
+    </ol>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Payment Details
+                        Credit Card Payment
                     </h3>
-                    <div class="checkbox pull-right">
-                        <label>
-                            <input type="checkbox" />
-                            Remember
-                        </label>
-                    </div>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form id="credit_card_form">
                         <div class="form-group">
                             <label for="cardNumber">
                                 CARD NUMBER</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="text" class="form-control" id="cardNumber"
+                                       placeholder="Valid Card Number"/>
+                                <span class="input-group-addon"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardHolder">
+                                CARD HOLDER</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cardHolder"
+                                       placeholder="Card Holder"/>
+                                <span class="input-group-addon"></span>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-7 col-md-7">
+                            <div class="col-xs-6 col-md-6">
                                 <div class="form-group">
                                     <label for="expityMonth">
                                         EXPIRY DATE</label>
-                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                        <input type="text" class="form-control" id="expityMonth" placeholder="MM" />
+                                    <div class="row">
+                                        <div class="col-xs-6 col-lg-6">
+                                            <input type="text" class="form-control" id="expityMonth" placeholder="MM"/>
+                                        </div>
+                                        <div class="col-xs-6 col-lg-6">
+                                            <input type="text" class="form-control" id="expityYear" placeholder="YY"/>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                        <input type="text" class="form-control" id="expityYear" placeholder="YY"/></div>
                                 </div>
                             </div>
-                            <div class="col-xs-5 col-md-5 pull-right">
+                            <div class="col-xs-6 col-md-6 pull-right">
                                 <div class="form-group">
                                     <label for="cvCode">
                                         CV CODE</label>
-                                    <input type="password" class="form-control" id="cvCode" placeholder="CV" />
+                                    <input type="password" class="form-control" id="cvCode" placeholder="CV"/>
                                 </div>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Pay with Credit Card</button>
                     </form>
                 </div>
             </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><span class="badge pull-right"><span class="glyphicon glyphicon-usd"></span>4200</span> Final Payment</a>
-                </li>
-            </ul>
             <br/>
-            <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
         </div>
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        Payment Details
+                        PayPal Payment
                     </h3>
-                    <div class="checkbox pull-right">
-                        <label>
-                            <input type="checkbox" />
-                            Remember
-                        </label>
-                    </div>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <form id="paypal_form">
                         <div class="form-group">
-                            <label for="cardNumber">
-                                CARD NUMBER</label>
+                            <label for="userNamer">
+                                PAYPAL USERNAME</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number"/>
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                <input type="text" class="form-control" id="userNamer"
+                                       placeholder="email or username"/>
+                                <span class="input-group-addon"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-7 col-md-7">
-                                <div class="form-group">
-                                    <label for="expityMonth">
-                                        EXPIRY DATE</label>
-                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                        <input type="text" class="form-control" id="expityMonth" placeholder="MM" />
-                                    </div>
-                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-                                        <input type="text" class="form-control" id="expityYear" placeholder="YY"/></div>
-                                </div>
-                            </div>
-                            <div class="col-xs-5 col-md-5 pull-right">
-                                <div class="form-group">
-                                    <label for="cvCode">
-                                        CV CODE</label>
-                                    <input type="password" class="form-control" id="cvCode" placeholder="CV" />
-                                </div>
+                        <div class="form-group">
+                            <label for="password">
+                                PAYPAL PASSWORD</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" placeholder="password"/>
+                                <span class="input-group-addon"></span>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Pay with PayPal</button>
                     </form>
                 </div>
             </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><span class="badge pull-right"><span class="glyphicon glyphicon-usd"></span>4200</span> Final Payment</a>
-                </li>
-            </ul>
             <br/>
-            <a href="http://www.jquery2dotnet.com" class="btn btn-success btn-lg btn-block" role="button">Pay</a>
         </div>
     </div>
 </div>

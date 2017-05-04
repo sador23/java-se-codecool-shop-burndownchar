@@ -72,8 +72,17 @@ $(document).ready(function() {
             $('#billing-city').val("");
             $('#billing-zip_code').val("");
             $('#billing-address').val("");
-        }
-        ;
+        };
 
     });
+});
+
+$( '#credit_card_form' ).submit(function( event ) {
+    alert( "Credit Card payment successful" );
+    event.preventDefault();
+});
+
+$( '#paypal_form' ).submit(function( event ) {
+    alert( "PayPal payment successful" );
+    event.preventDefault();
 });
