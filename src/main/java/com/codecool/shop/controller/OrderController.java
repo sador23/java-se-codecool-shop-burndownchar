@@ -55,13 +55,14 @@ public class OrderController {
         response.redirect("/order/payment");
         return new ModelAndView(person, "product/payment");
     }
+
     public static ModelAndView setPaidStatus(Request request, Response response) {
         OrderDaoMem orders = OrderDaoMem.getInstance();
         Order currOrder = orders.getOrder();
 
         currOrder.setStatus("paid");
-        System.out.println();
-        response.redirect("/");
+        System.out.println(currOrder.getStatus());
+        response.redirect("/index");
         return new ModelAndView(response, "product/payment");
     }
 }
