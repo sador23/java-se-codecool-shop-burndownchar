@@ -45,9 +45,7 @@ public class Order {
     }
 
     public int getTotalQuantity() {
-        for (LineItem item: items) {
-            totalQuantity += 1;
-        }
+        this.totalQuantity=items.stream().mapToInt(n->n.getQuantity()).sum();
         return totalQuantity;
     }
 }
