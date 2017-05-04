@@ -5,12 +5,16 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 import com.codecool.shop.controller.CheckoutController;
 import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.PaymentController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
+import java.util.HashMap;
 
 public class Main {
 
@@ -64,6 +68,8 @@ public class Main {
 
         get("/order/checkout", CheckoutController::renderCheckoutForm, new ThymeleafTemplateEngine());
 
+        get("/order/payment", PaymentController::renderPayment, new ThymeleafTemplateEngine());
+
         post("/order/checkout/done", (request, response) -> {
             Person1 person = new Person1(request.queryParams("first_name"), request.queryParams("last_name"),
                     request.queryParams("phone_number"), request.queryParams("email_address"),
@@ -72,7 +78,7 @@ public class Main {
                     request.queryParams("billing-country"), request.queryParams("billing-city"),
                     request.queryParams("billing-zip_code"), request.queryParams("billing-address"));
             response.redirect("/order/payment");
-            return person;
+            return "";
         });
 
     }
