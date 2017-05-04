@@ -1,3 +1,7 @@
+$(document).ready(function () {
+
+
+
 $(function() {
 	var pop = $('.popbtn');
 	var row = $('.row:not(:first):not(:last)');
@@ -38,13 +42,18 @@ $(function() {
         });
     })
 
+    setTimeout(function (){
+
+        // Something you want delayed.
+
 
 	pop.on('click', function(e) {
 		pop.popover('toggle');
 		document.getElementById("delete-item").href="/cart/delete/"  + $(this).attr('name');
-        document.getElementById("edit-item").name="/cart/edit/"  + $(this).attr('name');
+        //document.getElementById("edit-item").name="/cart/edit/"  + $(this).attr('name');
 		pop.not(this).popover('hide');
 	});
+    }, 1000);
 
 
 	$(window).on('resize', function() {
@@ -76,4 +85,5 @@ $(document).ready(function() {
         ;
 
     });
+});
 });

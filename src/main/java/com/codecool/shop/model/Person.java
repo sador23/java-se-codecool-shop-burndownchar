@@ -1,22 +1,45 @@
 package com.codecool.shop.model;
 
 /**
- * Created by sador on 02.05.17.
+ * Created by tomi on 2017.05.03..
  */
 public class Person {
-    public int price;
+    static int personIdCounter = 0;
+
     public int id;
-    public int priceper;
-    public int qual;
-    public String name;
-    private static int id_p=0;
+    public String firstName;
+    public String lastName;
+    public String phoneNumber;
+    public String emailAddress;
 
-   public Person(String name, int qual, int price, int priceper){
-       this.id=id_p++;
-        this.name=name;
-        this.qual=qual;
-        this.price=price;
-        this.priceper=priceper;
+    public String shippingCountry;
+    public String shippingCity;
+    public String shippingZipCode;
+    public String shippingAddress;
 
+    public String billingCountry;
+    public String billingCity;
+    public String billingZipCode;
+    public String billingAddress;
+
+    public Person(String firstName, String lastName, String phoneNumber, String emailAddress,
+                  String shippingCountry, String shippingCity, String shippingZipCode, String shippingAddress,
+                  String billingCountry, String billingCity, String billingZipCode, String billingAddress) {
+
+        this.id = personIdCounter + 1;
+        personIdCounter += 1;
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+        this.shippingCountry = shippingCountry;
+        this.shippingCity = shippingCity;
+        this.shippingZipCode = shippingZipCode;
+        this.shippingAddress = shippingAddress;
+        this.billingCountry = billingCountry;
+        this.billingCity = billingCity;
+        this.billingZipCode = billingZipCode;
+        this.billingAddress = billingAddress;
     }
 }

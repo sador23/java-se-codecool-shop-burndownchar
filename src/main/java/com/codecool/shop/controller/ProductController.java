@@ -42,13 +42,14 @@ public class ProductController {
 
     public static ModelAndView renderCart(Request req, Response res){
         Map params= new HashMap<>();
-        List<Person> persons=new ArrayList<>();
 
         OrderDaoMem orders=OrderDaoMem.getInstance();
 
         List<LineItem> products=orders.getCurrentOrder();
 
-        int sum=products.stream().mapToInt(n->(int)n.getPrice() * n.getQuantity()).sum();
+        int sum=products.stream()
+                .mapToInt(n->(int)n.getPrice() * n.getQuantity())
+                .sum();
         params.put("products",products);
         params.put("sum",sum);
         return new ModelAndView(params,"product/cart");
@@ -57,11 +58,11 @@ public class ProductController {
 
 
     public static ModelAndView deleteItem(Request req, Response res){
-        String name=req.params(":id");
+        String product_id=req.params(":id");
         OrderDaoMem orders=OrderDaoMem.getInstance();
         List< LineItem> items=orders.getCurrentOrder();
         for(LineItem item : items){
-            if(item.getId()==Integer.parseInt(name)){
+            if(item.getId()==Integer.parseInt(product_id)){
                 orders.deleteItem(item);
                 break;
             }
@@ -78,7 +79,11 @@ public class ProductController {
         List < LineItem> itemList =orderDaoMem.getCurrentOrder();
 
             for(LineItem items: itemList){
-                if(req.queryParams("id").equals(Integer.toString(items.getId()))) items.setQuantity(Integer.parseInt(req.queryParams("quantity")));
+                if(req.queryParams("id")
+                        .equals
+                   (Integer.toString(items.getId()))) {
+                    items.setQuantity(Integer.parseInt(req.queryParams("quantity")));
+                }
             }
 
         return ProductController.renderCart(req,res);
