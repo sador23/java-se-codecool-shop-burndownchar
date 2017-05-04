@@ -14,19 +14,26 @@ $(function() {
 		}
 	});
 	
-	$("#inp").submit(function (e) {
+	$('[id^="inpn"]').submit(function (e) {
 		e.preventDefault();
 
 		var link= "/cart/edit/"+$(this).attr("name");
-		console.log(link);
+		var name=$(this).attr("name");
+		var id=$("#" + name);
 
         $.ajax({
             url: link,
             type: "POST",
-            data: {"id" : $(this).name, "quantity":document.getElementById($(this).attr("name"))},
+            data: {"id" : name, "quantity":id.val()},
             dataType: "html",
             success: function() {
+            	alert("Szia!!");
                 console.log("Nice");
+            },
+            timeout:1500,
+			error:function () {
+            	alert("not good!");
+
             }
         });
     })
