@@ -30,8 +30,8 @@ public class Main {
 
 
 
-        get("/cart/edit/:id", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render( ProductController.renderCart(req, res) );
+        post("/cart/edit/:id", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(ProductController.editItem(req, res) );
         });
 
         get("/cart/delete/:id", (Request req, Response res) -> {
@@ -50,6 +50,10 @@ public class Main {
 //            res.redirect("/");
             return new ThymeleafTemplateEngine().render( OrderController.addProductToOrder(req, res) );
         });
+
+        get("/categories/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
+
+        get("/suppliers/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
 
         // Add this line to your project to enable the debug screen
         enableDebugScreen();

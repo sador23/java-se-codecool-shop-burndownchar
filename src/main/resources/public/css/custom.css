@@ -252,7 +252,12 @@ a:hover {
 	padding-right: 10px;
 }
 
-
+#inp{
+	width: 30px;
+}
+input{
+	width: 30px;
+}
 .quantity{	
 	color: #4ea6bc;
 	font-size :18px;

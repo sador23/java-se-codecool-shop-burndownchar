@@ -13,6 +13,23 @@ $(function() {
 			return $('#popover').html();
 		}
 	});
+	
+	$("#inp").submit(function (e) {
+		e.preventDefault();
+
+		var link= "/cart/edit/"+$(this).attr("name");
+		console.log(link);
+
+        $.ajax({
+            url: link,
+            type: "POST",
+            data: {"id" : $(this).name, "quantity":document.getElementById($(this).attr("name"))},
+            dataType: "html",
+            success: function() {
+                console.log("Nice");
+            }
+        });
+    })
 
 
 	pop.on('click', function(e) {
@@ -22,10 +39,6 @@ $(function() {
 		pop.not(this).popover('hide');
 	});
 
-	document.getElementById("edit-item").onclick(function () {
-        $('#myModal').modal('show');
-
-    })
 
 	$(window).on('resize', function() {
 		pop.popover('hide');

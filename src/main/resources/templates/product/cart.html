@@ -45,13 +45,15 @@
 						<span>Price</span>
 					</li>
 
-					<div th:each="person : ${persons}">
+					<div th:each="product : ${products}">
 					<li class="row">
-						<span class="quantity" th:text="${person.qual}"></span>
-						<span class="itemName" th:text="${person.name}"></span>
-						<span class="priceperitem" th:text="${person.priceper}"></span>
-						<span class="popbtn" th:name="${person.id}"><a class="arrow"></a></span>
-						<span class="price" th:text="${person.price * person.qual}"></span>
+						<span class="quantity"><form id="inp" th:name="${product.getId()}" ><input th:id="${product.getId()}" th:placeholder="${product.quantity}" /></form></span>
+
+						<!--<span class="quantity" th:text="${product.quantity}"></span>-->
+						<span class="itemName" th:text="${product.getName()}"></span>
+						<span class="priceperitem" th:text="${product.price}"></span>
+						<span class="popbtn" th:name="${product.getId()}"><a class="arrow"></a></span>
+						<span class="price" th:text="${product.price * product.quantity}"></span>
 					</li>
 					</div>
 					<li class="row totals">
@@ -67,8 +69,8 @@
 		<!-- The popover content -->
 
 		<div id="popover" style="display: none">
-			<a href="#" id="edit-item"><span class="glyphicon glyphicon-pencil"></span></a>
-			<a href="#" id="delete-item"><span class="glyphicon glyphicon-remove"></span></a>
+			<a href="" id="edit-item"><span class="glyphicon glyphicon-pencil"></span></a>
+			<a href="" id="delete-item"><span class="glyphicon glyphicon-remove"></span></a>
 		</div>
 
 
@@ -93,7 +95,8 @@
 		
 		<!-- JavaScript includes -->
 
-		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script> 
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+				integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 		<script src="/js/bootstrap.min.js"></script>
 		<script src="/js/customjs.js"></script>
 

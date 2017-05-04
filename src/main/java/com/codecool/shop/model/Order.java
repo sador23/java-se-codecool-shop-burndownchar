@@ -1,7 +1,9 @@
 package com.codecool.shop.model;
 
+import javax.sound.sampled.Line;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.List;
 
 
 public class Order {
@@ -16,6 +18,10 @@ public class Order {
         this.items = new ArrayList<>();
         this.totalPrice = 0;
         this.defaultCurrency = Currency.getInstance("USD");
+    }
+
+    public List<LineItem>getAll(){
+        return items;
     }
 
 

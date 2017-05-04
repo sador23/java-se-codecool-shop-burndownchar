@@ -9,6 +9,9 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
+import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 
 public class OrderController {
 
@@ -17,8 +20,20 @@ public class OrderController {
         ProductDao productDaoMem = ProductDaoMem.getInstance();
         int id = Integer.parseInt(req.params(":id"));
         Product product = productDaoMem.find(id);
-        LineItem lineItem = new LineItem(product, 1, product.getDefaultPrice(), product.getDefaultCurrency());
-        orderDaoMem.add(lineItem);
+        ArrayList itemList =orderDaoMem.getCurrentOrder().stream()
+                .filter(n->n.getName()
+                .equals(product.getName()))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if(itemList.size()!=0){
+            for(LineItem items: orderDaoMem.getCurrentOrder()){
+                if(items.getName()== product.getName()) items.setQuantity(items.getQuantity()+1);
+            }
+        }else{
+            LineItem lineItem = new LineItem(product, 1, product.getDefaultPrice(), product.getDefaultCurrency());
+            orderDaoMem.add(lineItem);
+        }
+
         return ProductController.renderProducts(req,res);
 
     }

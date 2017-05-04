@@ -50,8 +50,23 @@
 </div>
 
 <div class="container">
-    <div class="well well-sm">
-        <strong th:text="${category.name}">Category Title</strong>
+
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Category
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li th:each="cat,iterationStatus  : ${categories}"><a th:text="${cat.name}" th:href="@{~/categories/{path}(path=${cat.id})}">Category Name</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Select Supplier
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+        <li th:each="sup,iterationStatus  : ${suppliers}"><a th:text="${sup.name}" th:href="@{~/suppliers/{path}(path=${sup.id})}">Supplier Name</a>
+        </li>
+        </ul>
     </div>
 
     <div id="products" class="row list-group">
