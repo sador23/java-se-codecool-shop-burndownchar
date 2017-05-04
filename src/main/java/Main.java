@@ -70,6 +70,11 @@ public class Main {
             return new ThymeleafTemplateEngine().render( OrderController.addPerson(request, response) );
         });
 
+        post("/order/payment/done", (request, response) -> {
+
+            return new ThymeleafTemplateEngine().render( OrderController.setPaidStatus(request, response) );
+        });
+
     }
 
     public static void populateData() {
