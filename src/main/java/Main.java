@@ -5,12 +5,16 @@ import static spark.debug.DebugScreen.enableDebugScreen;
 import com.codecool.shop.controller.CheckoutController;
 import com.codecool.shop.controller.OrderController;
 import com.codecool.shop.controller.ProductController;
+import com.codecool.shop.controller.PaymentController;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.*;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
+import java.util.HashMap;
 
 public class Main {
 
@@ -59,8 +63,16 @@ public class Main {
 
         get("/order/checkout", CheckoutController::renderCheckoutForm, new ThymeleafTemplateEngine());
 
+        get("/order/payment", PaymentController::renderPayment, new ThymeleafTemplateEngine());
+
         post("/order/checkout/done", (request, response) -> {
+
             return new ThymeleafTemplateEngine().render( OrderController.addPerson(request, response) );
+        });
+
+        post("/order/payment/done", (request, response) -> {
+
+            return new ThymeleafTemplateEngine().render( OrderController.setPaidStatus(request, response) );
         });
 
     }
