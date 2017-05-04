@@ -63,6 +63,11 @@ public class OrderController {
         currOrder.setStatus("paid");
         System.out.println(currOrder.getStatus());
         response.redirect("/index");
-        return new ModelAndView(response, "product/payment");
+
+        if(currOrder.getStatus().equals("checked")){
+            return new ModelAndView(response, "product/payment");
+        }
+        else return ProductController.renderProducts(request,response);
+
     }
 }
