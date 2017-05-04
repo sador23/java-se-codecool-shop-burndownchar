@@ -15,6 +15,11 @@ public class LineItem {
         this.defaultCurrency = defaultCurrency;
     }
 
+
+    public int getId(){
+        return this.product.getId();
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -37,5 +42,9 @@ public class LineItem {
 
     public void setDefaultCurrency(Currency defaultCurrency) {
         this.defaultCurrency = defaultCurrency;
+    }
+
+    public String getName(){
+        return this.product.getName();
     }
 }

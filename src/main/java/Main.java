@@ -29,9 +29,9 @@ public class Main {
             return new ThymeleafTemplateEngine().render(ProductController.renderCart(req, res));
         });
 
+        post("/cart/edit/:id", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(ProductController.editItem(req, res) );
 
-        get("/cart/edit/:id", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(ProductController.renderCart(req, res));
         });
 
         get("/cart/delete/:id", (Request req, Response res) -> {
@@ -52,6 +52,12 @@ public class Main {
             return null;
         });
 
+
+        get ("/:id", (req, res) -> {
+//            res.redirect("/");
+            return new ThymeleafTemplateEngine().render( OrderController.addProductToOrder(req, res) );
+        });
+
         get("/categories/:id", ProductController::renderProductsByCategory, new ThymeleafTemplateEngine());
 
         get("/suppliers/:id", ProductController::renderProductsBySupplier, new ThymeleafTemplateEngine());
@@ -69,9 +75,6 @@ public class Main {
             return person;
         });
 
-
-        // Add this line to your project to enable the debug screen
-        enableDebugScreen();
     }
 
     public static void populateData() {
