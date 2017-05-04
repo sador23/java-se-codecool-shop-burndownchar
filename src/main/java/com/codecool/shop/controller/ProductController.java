@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ProductController {
     static ProductDao productDataStore = ProductDaoMem.getInstance();
@@ -69,12 +70,18 @@ public class ProductController {
     }
 
     public static ModelAndView editItem(Request req, Response res){
-        System.out.println("Szia");
-        System.out.println(req.queryParams("id"));
-        System.out.println(req.queryParams("quantity"));
+
+        OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
+        ProductDao productDaoMem = ProductDaoMem.getInstance();
+        int id = Integer.parseInt(req.params(":id"));
+        Product product = productDaoMem.find(id);
+        List < LineItem> itemList =orderDaoMem.getCurrentOrder();
+
+            for(LineItem items: itemList){
+                if(req.queryParams("id").equals(Integer.toString(items.getId()))) items.setQuantity(Integer.parseInt(req.queryParams("quantity")));
+            }
 
         return ProductController.renderCart(req,res);
-
     }
 
 

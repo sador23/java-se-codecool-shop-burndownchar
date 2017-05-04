@@ -47,7 +47,7 @@
 
 					<div th:each="product : ${products}">
 					<li class="row">
-						<span class="quantity"><form id="inp" th:name="${product.getId()}" ><input th:id="${product.getId()}" th:placeholder="${product.quantity}" /></form></span>
+						<span class="quantity"><form th:id="'inpn'+${product.getId()}+''" th:name="${product.getId()}" ><input th:id="${product.getId()}" th:placeholder="${product.quantity}" /></form></span>
 
 						<!--<span class="quantity" th:text="${product.quantity}"></span>-->
 						<span class="itemName" th:text="${product.getName()}"></span>
