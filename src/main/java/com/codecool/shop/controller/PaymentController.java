@@ -18,8 +18,8 @@ public class PaymentController {
             Order currOrder = orders.getOrder();
             Map params = new HashMap<>();
 
-            if(currOrder.getStatus().equals("checked")){
-                return new ModelAndView(res, "product/payment");
+          if(currOrder.getStatus().equals("checked")){
+                return new ModelAndView(params, "product/payment");
             }
             else return ProductController.renderProducts(req,res);
 
