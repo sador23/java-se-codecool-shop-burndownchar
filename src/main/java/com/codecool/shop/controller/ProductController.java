@@ -33,14 +33,20 @@ public class ProductController {
 
     public static ModelAndView renderProducts(Request req, Response res) {
         if(!req.session().attributes().contains("order")) req.session().attribute("order",OrderDaoMem.getInstance());
-        logger.debug("Products rendered! Nice!");
-
         params.put("suppliers",supplierDataStore.getAll());
         params.put("categories",productCategoryDataStore.getAll());
         params.put("category", productCategoryDataStore.find(1));
         params.put("products", productDataStore.getAll());
         params.put("quantity", orderDaoMem.getOrder().getTotalQuantity());
         return new ModelAndView(params, "product/index");
+    }
+
+    public static ModelAndView login(Request request,Response response){
+        return new ModelAndView(params,"product/login");
+    }
+
+    public static ModelAndView register(Request request,Response response){
+        return new ModelAndView(params,"product/register");
     }
 
     public static ModelAndView renderCart(Request req, Response res){
@@ -70,25 +76,33 @@ public class ProductController {
                 break;
             }
         }
+        logger.debug("Deleted item from cart with id of {}",product_id);
         return ProductController.renderCart(req,res);
     }
 
     public static ModelAndView editItem(Request req, Response res){
+
 
         OrderDaoMem orderDaoMem = req.session().attribute("order");
         ProductDao productDaoMem = ProductDaoMem.getInstance();
         int id = Integer.parseInt(req.params(":id"));
         Product product = productDaoMem.find(id);
         List < LineItem> itemList =orderDaoMem.getCurrentOrder();
-
             for(LineItem items: itemList){
                 if(req.queryParams("id")
                         .equals
                    (Integer.toString(items.getId()))) {
-                    if(Integer.parseInt(req.queryParams("quantity"))<=0) orderDaoMem.deleteItem(items);
-                    else items.setQuantity(Integer.parseInt(req.queryParams("quantity")));
+                    if(Integer.parseInt(req.queryParams("quantity"))<=0){
+                        orderDaoMem.deleteItem(items);
+                        logger.debug("Deleted item from cart with id of {}", items.getId());
+                    }
+                    else {
+                        items.setQuantity(Integer.parseInt(req.queryParams("quantity")));
+                        logger.debug("Edited quantity of item from cart with id of {} to new quantity of {}",items.getId(),req.queryParams("quantity"));
+                    }
                 }
             }
+
 
         return ProductController.renderCart(req,res);
     }

@@ -7,6 +7,8 @@ import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Person;
 import com.codecool.shop.model.Product;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -17,10 +19,16 @@ import java.util.stream.Collectors;
 
 public class OrderController {
 
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+
     public static ModelAndView addProductToOrder(Request req, Response res) {
         OrderDaoMem orderDaoMem = req.session().attribute("order");
         ProductDao productDaoMem = ProductDaoMem.getInstance();
-        int id = Integer.parseInt(req.params(":id"));
+        try{
+            int id = Integer.parseInt(req.params(":id"));
+
+
+
         Product product = productDaoMem.find(id);
         ArrayList itemList = orderDaoMem.getCurrentOrder().stream()
                 .filter(n -> n.getName()
@@ -35,6 +43,11 @@ public class OrderController {
             LineItem lineItem = new LineItem(product, 1, product.getDefaultPrice(), product.getDefaultCurrency());
             orderDaoMem.add(lineItem);
         }
+            logger.debug("Added item to cart with id of {}",req.params(":id"));
+        }catch (NumberFormatException e){
+
+        }
+
 
         return ProductController.renderProducts(req, res);
 
@@ -53,6 +66,7 @@ public class OrderController {
         currOrder.setOwner(person);
         currOrder.setStatus("checked");
         response.redirect("/order/payment");
+        logger.debug("User form filled for order, with name of {} {}",request.queryParams("first_name"),request.queryParams("last_name"));
         return new ModelAndView(person, "product/payment");
     }
 

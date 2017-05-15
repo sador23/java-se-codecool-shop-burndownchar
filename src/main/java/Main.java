@@ -14,11 +14,19 @@ import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class Main {
 
+    static{
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        System.setProperty("date",dateFormat.format(new Date()));
+    }
+
     public static void main(String[] args) {
+
 
         // default server settings
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
@@ -31,6 +39,14 @@ public class Main {
         // Always start with more specific routes
         get("/cart", (Request req, Response res) -> {
             return new ThymeleafTemplateEngine().render(ProductController.renderCart(req, res));
+        });
+
+        get("/login", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(ProductController.login(req, res));
+        });
+
+        get("/register", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(ProductController.register(req, res));
         });
 
         post("/cart/edit/:id", (Request req, Response res) -> {
