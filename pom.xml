@@ -17,6 +17,17 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.jcabi</groupId>
+                <artifactId>jcabi-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>ajc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -28,14 +39,27 @@
             <version>2.5</version>
         </dependency>
         <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-template-thymeleaf</artifactId>
             <version>2.3</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.21</version>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.25</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
         </dependency>
         <dependency>
             <groupId>com.sparkjava</groupId>

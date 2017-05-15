@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class PaymentController {
         public static ModelAndView renderPayment(Request req, Response res) {
-            OrderDaoMem orders = OrderDaoMem.getInstance();
+            OrderDaoMem orders = req.session().attribute("order");
             Order currOrder = orders.getOrder();
             Map params = new HashMap<>();
 

@@ -9,6 +9,8 @@ import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
@@ -20,16 +22,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ProductController {
+
     static ProductDao productDataStore = ProductDaoMem.getInstance();
     static ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
     static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
     static OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
     static Map params = new HashMap<>();
-
-
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 
     public static ModelAndView renderProducts(Request req, Response res) {
+        if(!req.session().attributes().contains("order")) req.session().attribute("order",OrderDaoMem.getInstance());
+        logger.debug("Products rendered! Nice!");
 
         params.put("suppliers",supplierDataStore.getAll());
         params.put("categories",productCategoryDataStore.getAll());
@@ -39,11 +43,11 @@ public class ProductController {
         return new ModelAndView(params, "product/index");
     }
 
-
     public static ModelAndView renderCart(Request req, Response res){
         Map params= new HashMap<>();
+        req.session().attribute("order");
 
-        OrderDaoMem orders=OrderDaoMem.getInstance();
+        OrderDaoMem orders=req.session().attribute("order");
 
         List<LineItem> products=orders.getCurrentOrder();
 
@@ -56,10 +60,9 @@ public class ProductController {
     }
 
 
-
     public static ModelAndView deleteItem(Request req, Response res){
         String product_id=req.params(":id");
-        OrderDaoMem orders=OrderDaoMem.getInstance();
+        OrderDaoMem orders=req.session().attribute("order");
         List< LineItem> items=orders.getCurrentOrder();
         for(LineItem item : items){
             if(item.getId()==Integer.parseInt(product_id)){
@@ -72,7 +75,7 @@ public class ProductController {
 
     public static ModelAndView editItem(Request req, Response res){
 
-        OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
+        OrderDaoMem orderDaoMem = req.session().attribute("order");
         ProductDao productDaoMem = ProductDaoMem.getInstance();
         int id = Integer.parseInt(req.params(":id"));
         Product product = productDaoMem.find(id);
@@ -82,7 +85,8 @@ public class ProductController {
                 if(req.queryParams("id")
                         .equals
                    (Integer.toString(items.getId()))) {
-                    items.setQuantity(Integer.parseInt(req.queryParams("quantity")));
+                    if(Integer.parseInt(req.queryParams("quantity"))<=0) orderDaoMem.deleteItem(items);
+                    else items.setQuantity(Integer.parseInt(req.queryParams("quantity")));
                 }
             }
 

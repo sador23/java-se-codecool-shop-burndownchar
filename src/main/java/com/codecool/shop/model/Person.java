@@ -1,8 +1,8 @@
 package com.codecool.shop.model;
 
-/**
- * Created by tomi on 2017.05.03..
- */
+
+import jdk.nashorn.internal.runtime.logging.Logger;
+
 public class Person {
     static int personIdCounter = 0;
 
@@ -21,6 +21,8 @@ public class Person {
     public String billingCity;
     public String billingZipCode;
     public String billingAddress;
+
+
 
     public Person(String firstName, String lastName, String phoneNumber, String emailAddress,
                   String shippingCountry, String shippingCity, String shippingZipCode, String shippingAddress,

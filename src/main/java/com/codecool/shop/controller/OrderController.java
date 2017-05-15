@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     public static ModelAndView addProductToOrder(Request req, Response res) {
-        OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
+        OrderDaoMem orderDaoMem = req.session().attribute("order");
         ProductDao productDaoMem = ProductDaoMem.getInstance();
         int id = Integer.parseInt(req.params(":id"));
         Product product = productDaoMem.find(id);
@@ -41,7 +41,7 @@ public class OrderController {
     }
 
     public static ModelAndView addPerson(Request request, Response response) {
-        OrderDaoMem orders = OrderDaoMem.getInstance();
+        OrderDaoMem orders = request.session().attribute("order");
         Order currOrder = orders.getOrder();
 
         Person person = new Person(request.queryParams("first_name"), request.queryParams("last_name"),
@@ -57,7 +57,7 @@ public class OrderController {
     }
 
     public static ModelAndView setPaidStatus(Request request, Response response) {
-        OrderDaoMem orders = OrderDaoMem.getInstance();
+        OrderDaoMem orders = request.session().attribute("order");
         Order currOrder = orders.getOrder();
 
         currOrder.setStatus("paid");
