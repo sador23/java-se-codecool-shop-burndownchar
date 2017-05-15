@@ -8,7 +8,7 @@ $(document).ready(function () {
             url: $(this).attr("name"),
             type: "GET",
             success: function () {
-                window.location.reload();
+                $('#cart-counter').load(document.URL +  ' #cart-counter');
             },
             timeout: 1500,
             error: function () {
