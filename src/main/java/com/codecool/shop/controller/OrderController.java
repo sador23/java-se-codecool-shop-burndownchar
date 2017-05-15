@@ -57,13 +57,22 @@ public class OrderController {
         OrderDaoMem orders = request.session().attribute("order");
         Order currOrder = orders.getOrder();
 
-        Person person = new Person(request.queryParams("first_name"), request.queryParams("last_name"),
-                request.queryParams("phone_number"), request.queryParams("email_address"),
-                request.queryParams("shipping-country"), request.queryParams("shipping-city"),
-                request.queryParams("shipping-zip-code"), request.queryParams("shipping-address"),
-                request.queryParams("billing-country"), request.queryParams("billing-city"),
-                request.queryParams("billing-zip_code"), request.queryParams("billing-address"));
+        Person person = new Person();
+        person.setFirstName(request.queryParams("first_name"));
+        person.setLastName(request.queryParams("last_name"));
+        person.setPhoneNumber(request.queryParams("phone_number"));
+        person.setEmailAddress(request.queryParams("email_address"));
+        person.setShippingCountry(request.queryParams("shipping-country"));
+        person.setShippingCity(request.queryParams("shipping-city"));
+        person.setShippingZipCode(request.queryParams("shipping-zip-code"));
+        person.setShippingAddress(request.queryParams("shipping-address"));
+        person.setBillingCountry(request.queryParams("billing-country"));
+        person.setBillingCity(request.queryParams("billing-city"));
+        person.setBillingZipCode(request.queryParams("billing-zip_code"));
+        person.setBillingAddress(request.queryParams("billing-address"));
+        
         currOrder.setOwner(person);
+
         currOrder.setStatus("checked");
         response.redirect("/order/payment");
         logger.debug("User form filled for order, with name of {} {}",request.queryParams("first_name"),request.queryParams("last_name"));

@@ -49,20 +49,25 @@ public class ProductController {
         return new ModelAndView(params,"product/register");
     }
 
-    public static ModelAndView renderCart(Request req, Response res){
-        Map params= new HashMap<>();
+    public static ModelAndView renderCart(Request req, Response res) {
+        Map params = new HashMap<>();
         req.session().attribute("order");
 
-        OrderDaoMem orders=req.session().attribute("order");
+        OrderDaoMem orders = req.session().attribute("order");
 
-        List<LineItem> products=orders.getCurrentOrder();
+        List<LineItem> products = orders.getCurrentOrder();
 
-        int sum=products.stream()
-                .mapToInt(n->(int)n.getPrice() * n.getQuantity())
+        int sum = products.stream()
+                .mapToInt(n -> (int) n.getPrice() * n.getQuantity())
                 .sum();
-        params.put("products",products);
-        params.put("sum",sum);
-        return new ModelAndView(params,"product/cart");
+        params.put("products", products);
+        params.put("sum", sum);
+        if (sum != 0) {
+            return new ModelAndView(params, "product/cart");
+        } else {
+            res.redirect("/");
+            return new ModelAndView(params, "product/cart");
+        }
     }
 
 
