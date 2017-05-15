@@ -49,6 +49,15 @@ public class ProductController {
         return new ModelAndView(params,"product/register");
     }
 
+    public static ModelAndView register_user(Request request, Response response){
+        System.out.println(request.queryParams("psw"));
+        System.out.println(request.queryParams("name"));
+        System.out.println(request.queryParams("mail"));
+
+
+        return new ProductController().renderProducts(request,response);
+    }
+
     public static ModelAndView renderCart(Request req, Response res){
         Map params= new HashMap<>();
         req.session().attribute("order");

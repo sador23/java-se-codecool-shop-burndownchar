@@ -58,6 +58,10 @@ public class Main {
             return new ThymeleafTemplateEngine().render(ProductController.deleteItem(req, res));
         });
 
+        post("/register_user", (Request req, Response res) -> {
+            return new ThymeleafTemplateEngine().render(ProductController.register_user(req, res) );
+        });
+
 
         // Always add generic routes to the end
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
