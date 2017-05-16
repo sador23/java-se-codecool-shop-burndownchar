@@ -16,28 +16,28 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductCategoryDaoTest {
 
     static Stream<ProductCategoryDao> objects() {
-        return  Stream.of(
+        return Stream.of(
                 ProductCategoryDaoMem.getInstance(),
                 ProductCategoryDaoMem.getInstance()
         );
     }
 
     @BeforeEach
-    void clearAllProducts() {
+    void clearAllProductCategories() {
         objects().forEach(ProductCategoryDao::removeAll);
     }
 
     @ParameterizedTest
-    @MethodSource( names = "objects")
+    @MethodSource(names = "objects")
     void testProductCategoryDaoIsNotNull(ProductCategoryDao argument) {
         assertNotNull(argument);
     }
 
     @ParameterizedTest
     @MethodSource(names = "objects")
-    void testGettingAllProducts(ProductCategoryDao argument) {
+    void testGettingAllProductCategories(ProductCategoryDao argument) {
         argument.add(new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display."));
-        argument.add(new ProductCategory("Smart phone","HardWare","A phone that is very smart."));
+        argument.add(new ProductCategory("Smart phone", "HardWare", "A phone that is very smart."));
         assertEquals(2, argument.getAll().size());
     }
 
@@ -50,33 +50,29 @@ class ProductCategoryDaoTest {
     @ParameterizedTest
     @MethodSource(names = "objects")
     void testAddingProductCategoryIsSuccessFull(ProductCategoryDao argument) {
-        argument.add(new ProductCategory("Smart phone","HardWare","A phone that is very smart."));
-        assertNotNull(argument.find(1));
+        argument.add(new ProductCategory("Smart phone", "HardWare", "A phone that is very smart."));
+        assertEquals(argument.find(1).getName(),"Smart phone");
 
     }
 
     @ParameterizedTest
     @MethodSource(names = "objects")
     void testAddingSecondProductCategoryIsSuccessFull(ProductCategoryDao argument) {
-        argument.add(new ProductCategory("Smart phone","HardWare","A phone that is very smart."));
+        argument.add(new ProductCategory("Smart phone", "HardWare", "A phone that is very smart."));
         argument.add(new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display."));
-        assertNotNull(argument.find(2));
+        assertEquals(argument.find(2).getName(),"Tablet");
 
     }
 
     @ParameterizedTest
     @MethodSource(names = "objects")
     void testRemovingProductCategoryIsSuccessFull(ProductCategoryDao argument) {
-        argument.add(new ProductCategory("Smart phone","HardWare","A phone that is very smart."));
+        argument.add(new ProductCategory("Smart phone", "HardWare", "A phone that is very smart."));
         argument.add(new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display."));
         argument.remove(1);
         assertNull(argument.find(1));
 
     }
-
-
-
-
 
 
 }

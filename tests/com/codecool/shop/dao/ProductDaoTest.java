@@ -19,13 +19,12 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class ProductDaoTest {
 
-     static Stream<ProductDao> objects() {
-        return  Stream.of(
+    static Stream<ProductDao> objects() {
+        return Stream.of(
                 ProductDaoMem.getInstance(),
                 ProductDaoMem.getInstance()
         );
     }
-
 
 
     @BeforeEach
@@ -35,7 +34,7 @@ class ProductDaoTest {
 
 
     @ParameterizedTest
-    @MethodSource( names = "objects")
+    @MethodSource(names = "objects")
     void testProductDaoIsNotNull(ProductDao argument) {
         assertNotNull(argument);
     }
@@ -83,8 +82,8 @@ class ProductDaoTest {
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         argument.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         List<Product> results = argument.getBy(amazon);
-        for (Product product:results) {
-            assertEquals("Amazon",product.getSupplier().getName());
+        for (Product product : results) {
+            assertEquals("Amazon", product.getSupplier().getName());
         }
     }
 
@@ -96,8 +95,8 @@ class ProductDaoTest {
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         argument.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         List<Product> results = argument.getBy(tablet);
-        for (Product product:results) {
-            assertEquals("Tablet",product.getProductCategory().getName());
+        for (Product product : results) {
+            assertEquals("Tablet", product.getProductCategory().getName());
         }
     }
 
@@ -111,13 +110,6 @@ class ProductDaoTest {
         argument.remove(1);
         assertNull(argument.find(1));
     }
-
-
-
-
-
-
-
 
 
 }
