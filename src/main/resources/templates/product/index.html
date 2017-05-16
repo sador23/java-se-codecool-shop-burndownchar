@@ -40,7 +40,7 @@
             <a href="/cart">
                 <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
             </a>
-            <a th:text="${quantity}"></a>
+            <a th:text="${quantity}" id="cart-counter"></a>
         </div>
     </div>
 </div>
@@ -57,7 +57,7 @@
         <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select Category
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li th:each="cat,iterationStatus  : ${categories}"><a th:text="${cat.name}" th:href="@{~/categories/{path}(path=${cat.id})}">Category Name</a>
+            <li class="dropdown-element" th:each="cat,iterationStatus  : ${categories}"><a th:text="${cat.name}" th:href="@{~/categories/{path}(path=${cat.id})}">Category Name</a>
             </li>
         </ul>
     </div>
@@ -66,7 +66,7 @@
         <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select Supplier
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-        <li th:each="sup,iterationStatus  : ${suppliers}"><a th:text="${sup.name}" th:href="@{~/suppliers/{path}(path=${sup.id})}">Supplier Name</a>
+        <li th:each="sup,iterationStatus  : ${suppliers}" class="supplier-element" th:attr="id=${sup.id}"><a th:text="${sup.name}" th:href="@{~/suppliers/{path}(path=${sup.id})}">Supplier Name</a>
         </li>
         </ul>
     </div>

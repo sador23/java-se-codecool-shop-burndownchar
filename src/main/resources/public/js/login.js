@@ -37,6 +37,25 @@ $(document).ready(function(){
 
           });
     })
+
+    $('.btn').click(function (event) {
+        event.preventDefault();
+        var name=document.getElementById("login_name").value;
+        var psw=document.getElementById("login_psw").value;
+        $.ajax({
+
+            url:"login_user",
+            type:"POST",
+            data:{"name":name,"psw":psw},
+            dataType:"html",
+            success:function () {
+
+            }
+
+        });
+    })
+
+
     });
 
 

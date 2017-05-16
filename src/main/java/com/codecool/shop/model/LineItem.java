@@ -1,5 +1,6 @@
 package com.codecool.shop.model;
 
+import com.codecool.shop.entity.*;
 import java.util.Currency;
 
 public class LineItem {
