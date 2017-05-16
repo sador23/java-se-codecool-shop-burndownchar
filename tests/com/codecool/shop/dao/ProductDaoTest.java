@@ -26,7 +26,7 @@ class ProductDaoTest {
         );
     }
 
-    
+
 
     @BeforeEach
     void clearAllProducts() {
@@ -36,13 +36,13 @@ class ProductDaoTest {
 
     @ParameterizedTest
     @MethodSource( names = "objects")
-    void testProductDaoIsNotNull(ProductDaoMem argument) {
+    void testProductDaoIsNotNull(ProductDao argument) {
         assertNotNull(argument);
     }
 
     @ParameterizedTest
     @MethodSource(names = "objects")
-    void testAddingProductIsSuccessFull(ProductDaoMem argument) {
+    void testAddingProductIsSuccessFull(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         argument.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
@@ -51,7 +51,7 @@ class ProductDaoTest {
 
     @ParameterizedTest
     @MethodSource(names = "objects")
-    void testAddingSecondProductIsSuccessFull(ProductDaoMem argument) {
+    void testAddingSecondProductIsSuccessFull(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
@@ -61,7 +61,7 @@ class ProductDaoTest {
 
     @ParameterizedTest
     @MethodSource(names = "objects")
-    void testGettingAllProducts(ProductDaoMem argument) {
+    void testGettingAllProducts(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
@@ -71,13 +71,13 @@ class ProductDaoTest {
 
     @ParameterizedTest
     @MethodSource(names = "objects")
-    void testFindingNotPresentProductReturnsNull(ProductDaoMem argument) {
+    void testFindingNotPresentProductReturnsNull(ProductDao argument) {
         assertNull(argument.find(1));
     }
 
     @ParameterizedTest
     @MethodSource(names = "objects")
-    void testFindingProductsBySupplier(ProductDaoMem argument) {
+    void testFindingProductsBySupplier(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
@@ -90,7 +90,7 @@ class ProductDaoTest {
 
     @ParameterizedTest
     @MethodSource(names = "objects")
-    void testFindingProductsByProductCategory(ProductDaoMem argument) {
+    void testFindingProductsByProductCategory(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
@@ -103,7 +103,7 @@ class ProductDaoTest {
 
     @ParameterizedTest
     @MethodSource(names = "objects")
-    void testDeletingProduct(ProductDaoMem argument) {
+    void testDeletingProduct(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
