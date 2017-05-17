@@ -1,5 +1,6 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.dao.implementation.SupplierDaoJdbc;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Supplier;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +20,7 @@ class SupplierDaoTest {
     static Stream<SupplierDao> objects() {
         return Stream.of(
                 SupplierDaoMem.getInstance(),
-                SupplierDaoMem.getInstance()
+                SupplierDaoJdbc.getInstance()
         );
     }
 
