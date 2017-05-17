@@ -11,15 +11,15 @@ public class DatabaseBuilder {
     public static String database;
     public static String db_url;
 
-    public static void readData(){
+    public static void readData() {
         try {
             Properties properties = new Properties();
             InputStream inputStream = Main.class.getResourceAsStream("sql/connection.properties");
             properties.load(inputStream);
-            database=properties.getProperty("database");
-            user=properties.getProperty("user");
-            db_url=properties.getProperty("url");
-            psw=properties.getProperty("password");
+            database = properties.getProperty("database");
+            user = properties.getProperty("user");
+            db_url = properties.getProperty("url");
+            psw = properties.getProperty("password");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -27,4 +27,5 @@ public class DatabaseBuilder {
 
     public static void main(String[] args) {
         readData();
+    }
 }
