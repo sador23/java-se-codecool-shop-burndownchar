@@ -6,7 +6,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
 		<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 		<link rel="stylesheet" type="text/css" href="/css/custom.css"/>
+
 	</head>
 
 	<body>
@@ -22,10 +24,10 @@
 		
 		<div class="container-fluid breadcrumbBox text-center">
 			<ol class="breadcrumb">
-				<li><a href="/">Home</a></li>
-				<li class="active"><a href="#">Order</a></li>
-				<li><a href="#">Checkout</a></li>
-				<li><a href="#">Payment</a></li>
+				<li>Home</li>
+				<li class="active">Order</li>
+				<li>Checkout</li>
+				<li>Payment</li>
 			</ol>
 		</div>
 		
@@ -53,7 +55,7 @@
 						<!--<span class="quantity" th:text="${product.quantity}"></span>-->
 						<span class="itemName" th:text="${product.getName()}"></span>
 						<span class="priceperitem" th:text="${product.price}"></span>
-						<a class="popbtn" th:name="${product.getId()}" > <a class="arrow"></a></a>
+						<a class="popbtn fa fa-times fa-2x" th:name="${product.getId()}" th:href="@{~/cart/delete/{path}(path=${product.getId()})}"></a>
 						<span class="price" th:text="${product.price * product.quantity}"></span>
 					</li>
 					</div>
