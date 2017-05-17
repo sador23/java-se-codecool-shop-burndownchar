@@ -1,5 +1,6 @@
 package com.codecool.shop.dao;
 
+import com.codecool.shop.dao.implementation.ProductDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
@@ -22,7 +23,7 @@ class ProductDaoTest {
     static Stream<ProductDao> objects() {
         return Stream.of(
                 ProductDaoMem.getInstance(),
-                ProductDaoMem.getInstance()
+                ProductDaoJdbc.getInstance()
         );
     }
 
@@ -44,7 +45,7 @@ class ProductDaoTest {
     void testAddingProductIsSuccessFull(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        argument.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
+        argument.add(new Product("Amazon Fire HD 8", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         assertNotNull(argument.find(1));
     }
 

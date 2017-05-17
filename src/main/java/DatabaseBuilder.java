@@ -38,13 +38,13 @@ public class DatabaseBuilder {
                 "CREATE TABLE Product " +
                 "(id SERIAL PRIMARY KEY, " +
                 "supplier_id INT, " +
-                "product_category_id INT, " +
+                "productcategory_id INT, " +
                 "name VARCHAR(35), " +
                 "description VARCHAR(255), " +
                 "currency VARCHAR(10), " +
                 "default_price FLOAT, " +
                 "FOREIGN KEY (supplier_id) REFERENCES Supplier (id), " +
-                "FOREIGN KEY(product_category_id) REFERENCES ProductCategory (id));";
+                "FOREIGN KEY(productcategory_id) REFERENCES ProductCategory (id));";
 
         stmt.executeUpdate(sql);
         System.out.println("Created ProductCategory, Supplier, Product tables in codecoolshop...");
@@ -63,7 +63,7 @@ public class DatabaseBuilder {
         System.out.println("Amazon, Lenovo added to ProductCategory table...");
 
         sql = "INSERT INTO Product (name, description, currency, default_price, " +
-                "supplier_id, product_category_id) " +
+                "supplier_id, productcategory_id) " +
                 "VALUES ('Amazon Fire', 'Fantastic price. Large content ecosystem. " +
                 "Good parental controls. " +
                 "Helpful technical support.', 'USD', 49.9, " +
@@ -71,7 +71,7 @@ public class DatabaseBuilder {
                 "(SELECT id from ProductCategory WHERE name='Tablet' )); " +
 
                 "INSERT INTO Product (name, description, currency, default_price, " +
-                "supplier_id, product_category_id) " +
+                "supplier_id, productcategory_id) " +
                 "VALUES ('Amazon Fire HD 8', 'Amazons latest Fire HD 8 tablet is a great value " +
                 "for media consumption." +
                 "Helpful technical support.', 'USD', 49.9, " +
@@ -79,12 +79,14 @@ public class DatabaseBuilder {
                 "(SELECT id from ProductCategory WHERE name='Tablet' )); " +
 
                 "INSERT INTO Product (name, description, currency, default_price, " +
-                "supplier_id, product_category_id) " +
+                "supplier_id, productcategory_id) " +
                 "VALUES ('Lenovo IdeaPad Miix 700', 'Keyboard cover is included. " +
                 "Fanless Core m5 processor. Full-size USB ports. " +
                 "Adjustable kickstand.', 'USD', 479, " +
                 "(SELECT id from Supplier WHERE name='Lenovo' ), " +
                 "(SELECT id from ProductCategory WHERE name='Tablet' ));";
+
+        stmt.executeUpdate(sql);
 
         System.out.println("Added products to Products table");
         System.out.println("Database populated");
