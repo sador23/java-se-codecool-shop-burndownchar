@@ -1,7 +1,6 @@
 package com.codecool.shop.dao;
 
-import com.codecool.shop.dao.implementation.ProductDaoJdbc;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -27,6 +26,20 @@ class ProductDaoTest {
         );
     }
 
+    static Stream<ProductCategoryDao> productCategoryDaoStream() {
+        return Stream.of(
+                ProductCategoryDaoMem.getInstance(),
+                ProductCategoryDaoJdbc.getInstance()
+        );
+    }
+
+    static Stream<SupplierDao> supplierStream() {
+        return Stream.of(
+                SupplierDaoMem.getInstance(),
+                SupplierDaoJdbc.getInstance()
+        );
+    }
+
 
     @BeforeEach
     void clearAllProducts() {
@@ -44,8 +57,15 @@ class ProductDaoTest {
     @MethodSource(names = "objects")
     void testAddingProductIsSuccessFull(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
-        argument.add(new Product("Amazon Fire HD 8", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
+        supplierStream().forEach(supplierDao -> supplierDao.add(amazon));
+        ProductCategory tablet = new ProductCategory("Tablet", "Hardware",
+                "A tablet computer, commonly shortened to tablet, " +
+                        "is a thin, flat mobile computer with a touchscreen display.");
+        productCategoryDaoStream().forEach(productCategoryDao -> productCategoryDao.add(tablet));
+        argument.add(new Product("Amazon Fire HD 8", 49.9f, "USD",
+                "Fantastic price. " +
+                "Large content ecosystem. " +
+                "Good parental controls. Helpful technical support.", tablet, amazon));
         assertNotNull(argument.find(1));
     }
 
@@ -53,7 +73,9 @@ class ProductDaoTest {
     @MethodSource(names = "objects")
     void testAddingSecondProductIsSuccessFull(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
+        supplierStream().forEach(supplierDao -> supplierDao.add(amazon));
         ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        productCategoryDaoStream().forEach(productCategoryDao -> productCategoryDao.add(tablet));
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         argument.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         assertNotNull(argument.find(2));
@@ -63,7 +85,11 @@ class ProductDaoTest {
     @MethodSource(names = "objects")
     void testGettingAllProducts(ProductDao argument) {
         Supplier amazon = new Supplier("Amazon", "Digital content and services");
-        ProductCategory tablet = new ProductCategory("Tablet", "Hardware", "A tablet computer, commonly shortened to tablet, is a thin, flat mobile computer with a touchscreen display.");
+        supplierStream().forEach(supplierDao -> supplierDao.add(amazon));
+        ProductCategory tablet = new ProductCategory("Tablet", "Hardware",
+                "A tablet computer, commonly shortened to tablet, is a thin, " +
+                        "flat mobile computer with a touchscreen display.");
+        productCategoryDaoStream().forEach(productCategoryDao -> productCategoryDao.add(tablet));
         argument.add(new Product("Amazon Fire HD 8", 89, "USD", "Amazon's latest Fire HD 8 tablet is a great value for media consumption.", tablet, amazon));
         argument.add(new Product("Amazon Fire", 49.9f, "USD", "Fantastic price. Large content ecosystem. Good parental controls. Helpful technical support.", tablet, amazon));
         assertEquals(2, argument.getAll().size());
