@@ -1,26 +1,25 @@
 package com.codecool.shop.model;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 
 
-public class Supplier extends BaseModel {
-    private ArrayList<Product> products;
+
+@Entity
+public class Supplier {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "supplier_id")
+    private int id;
+    private String name;
+    private String description;
 
     public Supplier(String name, String description) {
-        super(name);
-        this.products = new ArrayList<>();
+        this.name = name;
+        this.description = description;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public ArrayList getProducts() {
-        return this.products;
-    }
-
-    public void addProduct(Product product) {
-        this.products.add(product);
+    public Supplier() {
     }
 
     public String toString() {
@@ -31,5 +30,29 @@ public class Supplier extends BaseModel {
                 this.name,
                 this.description
         );
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

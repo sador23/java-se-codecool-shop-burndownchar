@@ -7,19 +7,20 @@ import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.User;
 import com.codecool.shop.model.*;
 
+import org.hibernate.Session;
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Response;
 import spark.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import javax.persistence.Query;
+import java.util.*;
 
 public class ProductController {
 
@@ -32,7 +33,9 @@ public class ProductController {
 
 
     public static ModelAndView renderProducts(Request req, Response res) {
-        if(!req.session().attributes().contains("order")) req.session().attribute("order",OrderDaoMem.getInstance());
+        if(!req.session().attributes().contains("order")) {
+            req.session().attribute("order",OrderDaoMem.getInstance());
+        }
         params.put("suppliers",supplierDataStore.getAll());
         params.put("categories",productCategoryDataStore.getAll());
         params.put("category", productCategoryDataStore.find(1));
@@ -49,8 +52,32 @@ public class ProductController {
         return new ModelAndView(params,"product/register");
     }
 
-    public static ModelAndView renderCart(Request req, Response res) {
-        Map params = new HashMap<>();
+    public static ModelAndView register_user(Request request, Response response,Session session){
+        session.beginTransaction();
+        User user=new User(request.queryParams("name"),request.queryParams("mail"),BCrypt.hashpw( request.queryParams("psw"), BCrypt.gensalt(10)));
+        session.save(user);
+        session.getTransaction().commit();
+        return new ProductController().renderProducts(request,response);
+    }
+
+    public static ModelAndView login_user(Request request, Response response, Session session){
+        String input_name= request.queryParams("name");
+        System.out.println(input_name);
+        Query query = session.createQuery("FROM User WHERE email=:input");
+        query.setParameter("input",input_name);
+        List<User> users=(List<User>) query.getResultList();
+        if (users.get(0).authenticate_user(request.queryParams("psw"))) {
+            users.get(0).login(request);
+            return new ProductController().renderProducts(request,response);
+        }
+        else System.out.println("Nope");
+
+        return new ProductController().login(request,response);
+    }
+
+
+    public static ModelAndView renderCart(Request req, Response res){
+        Map params= new HashMap<>();
         req.session().attribute("order");
 
         OrderDaoMem orders = req.session().attribute("order");
@@ -86,8 +113,6 @@ public class ProductController {
     }
 
     public static ModelAndView editItem(Request req, Response res){
-
-
         OrderDaoMem orderDaoMem = req.session().attribute("order");
         ProductDao productDaoMem = ProductDaoMem.getInstance();
         int id = Integer.parseInt(req.params(":id"));
@@ -100,6 +125,7 @@ public class ProductController {
                     if(Integer.parseInt(req.queryParams("quantity"))<=0){
                         orderDaoMem.deleteItem(items);
                         logger.debug("Deleted item from cart with id of {}", items.getId());
+                        logger.info("hali");
                     }
                     else {
                         items.setQuantity(Integer.parseInt(req.queryParams("quantity")));
