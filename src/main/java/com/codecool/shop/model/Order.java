@@ -3,7 +3,7 @@ package com.codecool.shop.model;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
-import com.codecool.shop.entity.*;
+
 
 
 public class Order {

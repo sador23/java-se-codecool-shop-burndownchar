@@ -16,10 +16,12 @@ target/
 *.war
 *.ear
 
-src/main/resources/sql/connection.properties
-src/main/resources/connection.properties
+/src/main/resources/sql/connection.properties
+/src/main/resources/connection.properties
+/src/main/resources/hibernate.cfg.xml
 .idea/
 
+*.properties
 /src/main/resources/logs/*
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml

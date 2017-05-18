@@ -7,6 +7,10 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Order;
+import org.apache.log4j.FileAppender;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
+import org.apache.log4j.SimpleLayout;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -35,10 +39,12 @@ public class Main {
     static{
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         System.setProperty("date",dateFormat.format(new Date()));
+        System.setProperty("order",Integer.toString(OrderDaoMem.getInstance().getOrder().getId()));
     }
 
     public static void main(String[] args) throws IOException {
         readData();
+
 
         final StandardServiceRegistry registry =
                 new StandardServiceRegistryBuilder()
@@ -176,17 +182,5 @@ public class Main {
         }
     }
 
-//    public static void setProperties(Request request) throws IOException {
-//        Properties properties = new Properties();
-//        InputStream inputStream = FileHandler.class.getResourceAsStream("log4j.properties");
-//        OutputStream out=new FileOutputStream("./resources/log4j.properties");
-//        properties.load(inputStream);
-//        OrderDaoMem orders=request.session().attribute("order");
-//        Order order=orders.getOrder();
-//        String filename="./src/main/resources/logs/" + order.getId()+"_"+System.getProperty("date");
-//        properties.setProperty("log4j.appender.FILE.File",filename);
-//        properties.store(out,null);
-//        out.close();
-//    }
 
 }

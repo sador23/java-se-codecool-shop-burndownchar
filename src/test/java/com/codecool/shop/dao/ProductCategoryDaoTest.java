@@ -11,9 +11,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Created by tomi on 2017.05.16..
- */
+
 class ProductCategoryDaoTest {
 
     static Stream<ProductCategoryDao> objects() {
