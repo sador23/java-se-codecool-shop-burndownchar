@@ -17,6 +17,7 @@ target/
 *.ear
 
 src/main/resources/sql/connection.properties
+src/main/resources/connection.properties
 .idea/
 
 /src/main/resources/logs/*
