@@ -44,7 +44,6 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
-        DatabaseBuilder.main(args);
         readData();
 
 

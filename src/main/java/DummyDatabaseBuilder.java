@@ -76,7 +76,7 @@ public class DummyDatabaseBuilder {
                 "supplier_id, productcategory_id) " +
                 "VALUES ('Amazon Fire HD 8', 'Amazons latest Fire HD 8 tablet is a great value " +
                 "for media consumption." +
-                "Helpful technical support.', 'USD', 49.9, " +
+                "Helpful technical support.', 'USD', 89, " +
                 "(SELECT id from Supplier WHERE name='Amazon' ), " +
                 "(SELECT id from ProductCategory WHERE name='Tablet' )); " +
 
