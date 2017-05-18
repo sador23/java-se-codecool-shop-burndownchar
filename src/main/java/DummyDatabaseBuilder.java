@@ -1,13 +1,15 @@
 import com.codecool.shop.dao.implementation.PropertiesReader;
 
-import java.sql.*;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
- * Created by tomi on 2017.05.17..
+ * Created by tomi on 2017.05.18..
  */
-public class DatabaseBuilder {
-    public static PropertiesReader propertiesReader = new PropertiesReader("connection.properties");
+public class DummyDatabaseBuilder {
+    public static PropertiesReader propertiesReader = new PropertiesReader("test_connection.properties");
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         propertiesReader.readData();
@@ -18,9 +20,9 @@ public class DatabaseBuilder {
                 propertiesReader.user,
                 propertiesReader.psw);
         System.out.println("Establishing database connection...");
-        System.out.println("Connecting to codecoolshop database...");
+        System.out.println("Connecting to dummy database...");
         System.out.println("Connected database successfully...");
-        System.out.println("Creating tables in codecooldshop...");
+        System.out.println("Creating tables in dummy database...");
         Statement stmt = con.createStatement();
 
         String sql = "DROP TABLE IF EXISTS ProductCategory, Supplier, Product CASCADE; " +

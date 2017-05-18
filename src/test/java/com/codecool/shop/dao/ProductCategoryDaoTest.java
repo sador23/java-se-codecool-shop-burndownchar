@@ -2,7 +2,9 @@ package com.codecool.shop.dao;
 
 import com.codecool.shop.dao.implementation.ProductCategoryDaoJdbc;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
+import com.codecool.shop.dao.implementation.SupplierDaoJdbc;
 import com.codecool.shop.model.ProductCategory;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -19,6 +21,16 @@ class ProductCategoryDaoTest {
                 ProductCategoryDaoMem.getInstance(),
                 ProductCategoryDaoJdbc.getInstance()
         );
+    }
+
+    @BeforeAll
+    static void setTestPropertiesReader() {
+        ProductCategoryDaoJdbc productCategoryDaoJdbc = (ProductCategoryDaoJdbc)objects().
+                filter(productCategoryDao ->
+                        ProductCategoryDaoJdbc.class.equals
+                                (productCategoryDao.getClass())).findAny().get();
+        productCategoryDaoJdbc.setPropertiesReader("test_connection.properties");
+
     }
 
     @BeforeEach

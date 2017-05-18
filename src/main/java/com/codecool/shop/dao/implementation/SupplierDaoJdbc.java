@@ -13,7 +13,7 @@ import java.util.List;
 public class SupplierDaoJdbc implements SupplierDao {
 
     private static SupplierDaoJdbc instance = null;
-    private static PropertiesReader propertiesReader = new com.codecool.shop.dao.implementation.PropertiesReader();
+    private static PropertiesReader propertiesReader = new PropertiesReader("connection.properties");
 
 
     private SupplierDaoJdbc() {
@@ -25,6 +25,10 @@ public class SupplierDaoJdbc implements SupplierDao {
         }
         propertiesReader.readData();
         return instance;
+    }
+
+    public static void setPropertiesReader(String fileName) {
+        SupplierDaoJdbc.propertiesReader = new PropertiesReader(fileName);
     }
 
     @Override
