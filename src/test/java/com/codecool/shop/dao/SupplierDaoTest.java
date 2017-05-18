@@ -3,11 +3,13 @@ package com.codecool.shop.dao;
 import com.codecool.shop.dao.implementation.SupplierDaoJdbc;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.Supplier;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 
+import java.lang.reflect.Array;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +24,14 @@ class SupplierDaoTest {
                 SupplierDaoMem.getInstance(),
                 SupplierDaoJdbc.getInstance()
         );
+    }
+
+    @BeforeAll
+    static void setTestPropertiesReader() {
+        SupplierDaoJdbc supplierDaoJdbc = (SupplierDaoJdbc) objects().filter
+                (supplierDao -> SupplierDaoJdbc.class.equals(supplierDao.getClass())).findAny().get();
+        supplierDaoJdbc.setPropertiesReader("test_connection.properties");
+
     }
 
     @BeforeEach
@@ -53,7 +63,7 @@ class SupplierDaoTest {
     @MethodSource(names = "objects")
     void testAddingSupplierIsSuccessFull(SupplierDao argument) {
         argument.add(new Supplier("Amazon", "Digital content and services"));
-        assertEquals(argument.find(1).getName(),"Amazon");
+        assertEquals(argument.find(1).getName(), "Amazon");
 
     }
 
@@ -62,7 +72,7 @@ class SupplierDaoTest {
     void testAddingSecondSupplierIsSuccessFull(SupplierDao argument) {
         argument.add(new Supplier("Amazon", "Digital content and services"));
         argument.add(new Supplier("Lenovo", "Computers"));
-        assertEquals(argument.find(2).getName(),"Lenovo");
+        assertEquals(argument.find(2).getName(), "Lenovo");
 
     }
 

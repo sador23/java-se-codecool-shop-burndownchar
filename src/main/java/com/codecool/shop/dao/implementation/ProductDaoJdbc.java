@@ -16,9 +16,13 @@ public class ProductDaoJdbc implements ProductDao {
     private static ProductDaoJdbc instance = null;
     private SupplierDaoJdbc supplierDaoJdbc = SupplierDaoJdbc.getInstance();
     private ProductCategoryDaoJdbc productCategoryDaoJdbc = ProductCategoryDaoJdbc.getInstance();
-    private static PropertiesReader propertiesReader = new PropertiesReader();
+    private static PropertiesReader propertiesReader = new PropertiesReader("connection.properties");
 
     private ProductDaoJdbc() {
+    }
+
+    public static void setPropertiesReader(String fileName) {
+       ProductDaoJdbc.propertiesReader = new PropertiesReader(fileName);
     }
 
     public static ProductDaoJdbc getInstance() {
