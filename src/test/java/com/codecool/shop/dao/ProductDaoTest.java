@@ -44,6 +44,8 @@ class ProductDaoTest {
     @BeforeEach
     void clearAllProducts() {
         objects().forEach(ProductDao::removeAll);
+        supplierStream().forEach(SupplierDao::removeAll);
+        productCategoryDaoStream().forEach(ProductCategoryDao::removeAll);
     }
 
 
