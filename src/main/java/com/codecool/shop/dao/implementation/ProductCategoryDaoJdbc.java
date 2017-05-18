@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ProductCategoryDaoJdbc implements ProductCategoryDao {
     private static ProductCategoryDaoJdbc instance = null;
-    private static PropertiesReader propertiesReader = new PropertiesReader();
+    private static PropertiesReader propertiesReader = new PropertiesReader("connection.properties");
 
     public static ProductCategoryDaoJdbc getInstance() {
         if (instance == null) {
@@ -21,6 +21,10 @@ public class ProductCategoryDaoJdbc implements ProductCategoryDao {
         }
         propertiesReader.readData();
         return instance;
+    }
+
+    public static void setPropertiesReader(String fileName) {
+        ProductCategoryDaoJdbc.propertiesReader = new PropertiesReader(fileName);
     }
 
     @Override

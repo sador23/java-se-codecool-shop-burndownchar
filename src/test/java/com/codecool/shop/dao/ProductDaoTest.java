@@ -40,10 +40,41 @@ class ProductDaoTest {
         );
     }
 
+    @BeforeAll
+    static void setTestPropertiesReaderForSupplierDaoJdbc() {
+        SupplierDaoJdbc supplierDaoJdbc = (SupplierDaoJdbc) supplierStream().
+                filter(supplierDao -> SupplierDaoJdbc.class.
+                        equals(supplierDao.getClass())).findAny().get();
+        supplierDaoJdbc.setPropertiesReader("test_connection.properties");
+    }
+
+    @BeforeAll
+    static void setTestPropertiesReaderForProductCategoryDaoJdbc() {
+        ProductCategoryDaoJdbc productCategoryDaoJdbc = (ProductCategoryDaoJdbc)
+                productCategoryDaoStream().
+                        filter(productCategoryDao ->
+                                ProductCategoryDaoJdbc.class.equals
+                                        (productCategoryDao.getClass())).findAny().get();
+        productCategoryDaoJdbc.setPropertiesReader("test_connection.properties");
+    }
+
+
+    @BeforeAll
+    static void setTestPropertiesReaderForProductDaoJdbc() {
+        ProductDaoJdbc productDaoJdbc = (ProductDaoJdbc) objects().
+                filter(productDao ->
+                        ProductDaoJdbc.class.equals
+                                (productDao.getClass())).findAny().get();
+        productDaoJdbc.setPropertiesReader("test_connection.properties");
+
+    }
+
 
     @BeforeEach
     void clearAllProducts() {
         objects().forEach(ProductDao::removeAll);
+        supplierStream().forEach(SupplierDao::removeAll);
+        productCategoryDaoStream().forEach(ProductCategoryDao::removeAll);
     }
 
 
@@ -64,8 +95,8 @@ class ProductDaoTest {
         productCategoryDaoStream().forEach(productCategoryDao -> productCategoryDao.add(tablet));
         argument.add(new Product("Amazon Fire HD 8", 49.9f, "USD",
                 "Fantastic price. " +
-                "Large content ecosystem. " +
-                "Good parental controls. Helpful technical support.", tablet, amazon));
+                        "Large content ecosystem. " +
+                        "Good parental controls. Helpful technical support.", tablet, amazon));
         assertNotNull(argument.find(1));
     }
 
