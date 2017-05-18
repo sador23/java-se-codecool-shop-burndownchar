@@ -1,4 +1,4 @@
-package com.codecool.shop.entity;
+package com.codecool.shop.model;
 
 
 import javax.persistence.*;

@@ -7,8 +7,8 @@ import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.entity.Product;
-import com.codecool.shop.entity.User;
+import com.codecool.shop.model.Product;
+import com.codecool.shop.model.User;
 import com.codecool.shop.model.*;
 
 import org.hibernate.Session;
@@ -20,7 +20,6 @@ import spark.Response;
 import spark.ModelAndView;
 
 import javax.persistence.Query;
-import java.io.IOException;
 import java.util.*;
 
 public class ProductController {

@@ -1,4 +1,4 @@
-package com.codecool.shop.entity;
+package com.codecool.shop.model;
 
 import org.mindrot.jbcrypt.BCrypt;
 import spark.Request;

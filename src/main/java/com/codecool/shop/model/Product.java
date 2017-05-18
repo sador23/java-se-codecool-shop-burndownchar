@@ -1,7 +1,4 @@
-package com.codecool.shop.entity;
-
-import com.codecool.shop.entity.ProductCategory;
-import com.codecool.shop.entity.Supplier;
+package com.codecool.shop.model;
 
 import javax.persistence.*;
 import java.util.Currency;

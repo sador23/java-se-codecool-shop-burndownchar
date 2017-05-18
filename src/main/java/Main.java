@@ -3,9 +3,9 @@ import static spark.Spark.*;
 import com.codecool.shop.controller.*;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
-import com.codecool.shop.entity.ProductCategory;
-import com.codecool.shop.entity.Supplier;
-import com.codecool.shop.entity.Product;
+import com.codecool.shop.model.ProductCategory;
+import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.Product;
 import com.codecool.shop.model.Order;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -176,17 +176,17 @@ public class Main {
         }
     }
 
-    public static void setProperties(Request request) throws IOException {
-        Properties properties = new Properties();
-        InputStream inputStream = FileHandler.class.getResourceAsStream("log4j.properties");
-        OutputStream out=new FileOutputStream("./resources/log4j.properties");
-        properties.load(inputStream);
-        OrderDaoMem orders=request.session().attribute("order");
-        Order order=orders.getOrder();
-        String filename="./src/main/resources/logs/" + order.getId()+"_"+System.getProperty("date");
-        properties.setProperty("log4j.appender.FILE.File",filename);
-        properties.store(out,null);
-        out.close();
-    }
+//    public static void setProperties(Request request) throws IOException {
+//        Properties properties = new Properties();
+//        InputStream inputStream = FileHandler.class.getResourceAsStream("log4j.properties");
+//        OutputStream out=new FileOutputStream("./resources/log4j.properties");
+//        properties.load(inputStream);
+//        OrderDaoMem orders=request.session().attribute("order");
+//        Order order=orders.getOrder();
+//        String filename="./src/main/resources/logs/" + order.getId()+"_"+System.getProperty("date");
+//        properties.setProperty("log4j.appender.FILE.File",filename);
+//        properties.store(out,null);
+//        out.close();
+//    }
 
 }

@@ -22,11 +22,11 @@
         <property name="hibernate.hbm2ddl.auto">create</property>
 
         <!-- Annotated entity classes -->
-        <mapping class="com.codecool.shop.entity.Product"/>
-        <mapping class="com.codecool.shop.entity.ProductCategory"/>
-        <mapping class="com.codecool.shop.entity.Supplier"/>
-        <mapping class="com.codecool.shop.entity.User"/>
-        <mapping class="com.codecool.shop.entity.UserContact"/>
+        <mapping class="com.codecool.shop.model.Product"/>
+        <mapping class="com.codecool.shop.model.ProductCategory"/>
+        <mapping class="com.codecool.shop.model.Supplier"/>
+        <mapping class="com.codecool.shop.model.User"/>
+        <mapping class="com.codecool.shop.model.UserContact"/>
 
     </session-factory>
 </hibernate-configuration>
