@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Currency;
 
 @Entity
+@Table(name = "product_hiber")
 public class Product {
 
     @Id

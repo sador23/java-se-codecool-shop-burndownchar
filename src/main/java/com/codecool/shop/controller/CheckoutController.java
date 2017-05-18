@@ -20,7 +20,7 @@ public class CheckoutController {
         logger.debug("Checkout started");
         Map params = new HashMap<>();
         if(!req.session().attributes().contains("user")){
-            return new ModelAndView(params, "product/register");
+            return new ModelAndView(params, "product/login");
         }
         return new ModelAndView(params, "product/checkout");
     }

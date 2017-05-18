@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.implementation.DaoFactory;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.model.User;
@@ -28,7 +29,7 @@ public class OrderController {
 
     public static ModelAndView addProductToOrder(Request req, Response res) {
         OrderDaoMem orderDaoMem = req.session().attribute("order");
-        ProductDao productDaoMem = ProductDaoMem.getInstance();
+        ProductDao productDaoMem = DaoFactory.createProductDao();
         try{
             int id = Integer.parseInt(req.params(":id"));
 

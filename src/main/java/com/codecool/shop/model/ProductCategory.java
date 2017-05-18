@@ -4,6 +4,7 @@ package com.codecool.shop.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "prodcat_hiber")
 public class ProductCategory {
 
 

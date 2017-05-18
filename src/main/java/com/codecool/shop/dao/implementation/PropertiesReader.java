@@ -26,4 +26,9 @@ public class PropertiesReader {
             e.printStackTrace();
         }
     }
+
+    public void hibernateXmlSetup(){
+
+
+    }
 }

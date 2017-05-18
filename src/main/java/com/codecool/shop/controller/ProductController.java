@@ -3,10 +3,7 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.User;
 import com.codecool.shop.model.*;
@@ -24,9 +21,9 @@ import java.util.*;
 
 public class ProductController {
 
-    static ProductDao productDataStore = ProductDaoMem.getInstance();
-    static ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+    static ProductDao productDataStore = DaoFactory.createProductDao();
+    static ProductCategoryDao productCategoryDataStore = DaoFactory.createProductCategoryDao();
+    static SupplierDao supplierDataStore = DaoFactory.createSupplierDao();
     static OrderDaoMem orderDaoMem = OrderDaoMem.getInstance();
     static Map params = new HashMap<>();
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
@@ -57,6 +54,7 @@ public class ProductController {
         User user=new User(request.queryParams("name"),request.queryParams("mail"),BCrypt.hashpw( request.queryParams("psw"), BCrypt.gensalt(10)));
         session.save(user);
         session.getTransaction().commit();
+        //Email.sendEmail("You registered! Nice!","Dear " + user.getName());
         return new ProductController().renderProducts(request,response);
     }
 

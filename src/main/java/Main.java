@@ -25,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -42,7 +43,8 @@ public class Main {
         System.setProperty("order",Integer.toString(OrderDaoMem.getInstance().getOrder().getId()));
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException {
+        DatabaseBuilder.main(args);
         readData();
 
 
