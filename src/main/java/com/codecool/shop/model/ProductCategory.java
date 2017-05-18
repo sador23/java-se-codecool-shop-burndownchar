@@ -1,15 +1,45 @@
 package com.codecool.shop.model;
 
-import java.util.ArrayList;
 
-public class ProductCategory extends BaseModel {
+import javax.persistence.*;
+
+@Entity
+@Table(name = "prodcat_hiber")
+public class ProductCategory {
+
+
+    private int id;
+    private String name;
+    private String description;
     private String department;
-    private ArrayList<Product> products;
 
-    public ProductCategory(String name, String department, String description) {
-        super(name);
-        this.department = department;
-        this.products = new ArrayList<>();
+    public ProductCategory() {
+    }
+    @Id
+    @Column(name = "category_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDepartment() {
@@ -20,27 +50,9 @@ public class ProductCategory extends BaseModel {
         this.department = department;
     }
 
-    public void setProducts(ArrayList<Product> products) {
-        this.products = products;
-    }
-
-    public ArrayList getProducts() {
-        return this.products;
-    }
-
-    public void addProduct(Product product) {
-        this.products.add(product);
-    }
-
-    public String toString() {
-        return String.format(
-                "id: %1$d," +
-                        "name: %2$s, " +
-                        "department: %3$s, " +
-                        "description: %4$s",
-                this.id,
-                this.name,
-                this.department,
-                this.description);
+    public ProductCategory(String name, String description, String department) {
+        this.name = name;
+        this.description = description;
+        this.department = department;
     }
 }

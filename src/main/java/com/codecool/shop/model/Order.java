@@ -5,6 +5,7 @@ import java.util.Currency;
 import java.util.List;
 
 
+
 public class Order {
     private int id;
     private String status;
@@ -31,6 +32,10 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId(){
+        return id;
     }
 
     public void addLineItem(LineItem lineItem) {

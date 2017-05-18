@@ -1,11 +1,13 @@
 package com.codecool.shop.model;
 
+import javax.persistence.*;
 
-import jdk.nashorn.internal.runtime.logging.Logger;
+@Entity
+public class UserContact {
 
-public class Person {
-    static int personIdCounter = 0;
-
+    @Id
+    @Column(name = "contact_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
     public String firstName;
     public String lastName;
@@ -22,12 +24,7 @@ public class Person {
     public String billingZipCode;
     public String billingAddress;
 
-
-
-    public Person() {
-
-        this.id = personIdCounter + 1;
-        personIdCounter += 1;
+    public UserContact(){
 
     }
 

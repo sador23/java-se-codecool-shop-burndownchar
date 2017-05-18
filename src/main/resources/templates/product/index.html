@@ -34,13 +34,13 @@
 
 <nav class="navbar">
 <div class="container">
-    <a class="navbar-brand" href="#">Welcome to Burndownchart's webshop</a>
+    <a class="navbar-brand" href="/">Welcome to Burndownchart's webshop</a>
     <div class="navbar-right">
         <div class="container minicart">
             <a href="/cart">
                 <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
             </a>
-            <a th:text="${quantity}"></a>
+            <a th:text="${quantity}" id="cart-counter"></a>
         </div>
     </div>
 </div>
@@ -57,7 +57,7 @@
         <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select Category
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li th:each="cat,iterationStatus  : ${categories}"><a th:text="${cat.name}" th:href="@{~/categories/{path}(path=${cat.id})}">Category Name</a>
+            <li class="dropdown-element" th:each="cat,iterationStatus  : ${categories}"><a th:text="${cat.name}" th:href="@{~/categories/{path}(path=${cat.id})}">Category Name</a>
             </li>
         </ul>
     </div>
@@ -66,7 +66,7 @@
         <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select Supplier
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-        <li th:each="sup,iterationStatus  : ${suppliers}"><a th:text="${sup.name}" th:href="@{~/suppliers/{path}(path=${sup.id})}">Supplier Name</a>
+        <li th:each="sup,iterationStatus  : ${suppliers}" class="supplier-element" th:attr="id=${sup.id}"><a th:text="${sup.name}" th:href="@{~/suppliers/{path}(path=${sup.id})}">Supplier Name</a>
         </li>
         </ul>
     </div>
@@ -85,7 +85,7 @@
                             <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
                         </div>
                         <div class="col-xs-12 col-md-6">
-                            <a class="btn btn-success" th:attr="href='/' + ${prod.id}">Add to cart</a>
+                            <a class="btn btn-success" id="getCurrProd" th:name="'/' + ${prod.id}">Add to cart</a>
 
                         </div>
                     </div>
@@ -97,6 +97,8 @@
 </div>
 
 <div th:replace="footer :: copy"></div>
+
+<script src="/js/index.js"></script>
 
 </body>
 </html>
