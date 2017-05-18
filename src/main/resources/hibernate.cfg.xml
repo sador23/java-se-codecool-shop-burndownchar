@@ -9,8 +9,8 @@
         <!-- Connection settings -->
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/codecoolshop</property>
-        <property name="hibernate.connection.username">user</property>
-        <property name="hibernate.connection.password">password</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">postgres</property>
 
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
@@ -26,6 +26,7 @@
         <mapping class="com.codecool.shop.entity.ProductCategory"/>
         <mapping class="com.codecool.shop.entity.Supplier"/>
         <mapping class="com.codecool.shop.entity.User"/>
+        <mapping class="com.codecool.shop.entity.UserContact"/>
 
     </session-factory>
 </hibernate-configuration>

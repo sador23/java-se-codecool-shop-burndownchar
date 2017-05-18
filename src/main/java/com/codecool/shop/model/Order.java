@@ -34,6 +34,10 @@ public class Order {
         this.id = id;
     }
 
+    public int getId(){
+        return id;
+    }
+
     public void addLineItem(LineItem lineItem) {
         items.add(lineItem);
 

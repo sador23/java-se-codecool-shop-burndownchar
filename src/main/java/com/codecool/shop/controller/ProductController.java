@@ -20,14 +20,8 @@ import spark.Response;
 import spark.ModelAndView;
 
 import javax.persistence.Query;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ProductController {
 
@@ -40,7 +34,9 @@ public class ProductController {
 
 
     public static ModelAndView renderProducts(Request req, Response res) {
-        if(!req.session().attributes().contains("order")) req.session().attribute("order",OrderDaoMem.getInstance());
+        if(!req.session().attributes().contains("order")) {
+            req.session().attribute("order",OrderDaoMem.getInstance());
+        }
         params.put("suppliers",supplierDataStore.getAll());
         params.put("categories",productCategoryDataStore.getAll());
         params.put("category", productCategoryDataStore.find(1));
@@ -67,13 +63,17 @@ public class ProductController {
 
     public static ModelAndView login_user(Request request, Response response, Session session){
         String input_name= request.queryParams("name");
+        System.out.println(input_name);
         Query query = session.createQuery("FROM User WHERE email=:input");
         query.setParameter("input",input_name);
         List<User> users=(List<User>) query.getResultList();
-        if (users.get(0).authenticate_user(request.queryParams("psw"))) System.out.println("Yep");
+        if (users.get(0).authenticate_user(request.queryParams("psw"))) {
+            users.get(0).login(request);
+            return new ProductController().renderProducts(request,response);
+        }
         else System.out.println("Nope");
 
-        return new ProductController().renderProducts(request,response);
+        return new ProductController().login(request,response);
     }
 
 

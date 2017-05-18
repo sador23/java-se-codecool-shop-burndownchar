@@ -19,6 +19,9 @@ public class CheckoutController {
     public static ModelAndView renderCheckoutForm(Request req, Response res) {
         logger.debug("Checkout started");
         Map params = new HashMap<>();
+        if(!req.session().attributes().contains("user")){
+            return new ModelAndView(params, "product/register");
+        }
         return new ModelAndView(params, "product/checkout");
     }
 }

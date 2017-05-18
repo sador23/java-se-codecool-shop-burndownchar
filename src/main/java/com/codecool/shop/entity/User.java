@@ -1,6 +1,7 @@
 package com.codecool.shop.entity;
 
 import org.mindrot.jbcrypt.BCrypt;
+import spark.Request;
 
 import javax.persistence.*;
 
@@ -16,12 +17,25 @@ public class User {
     private String email;
     private String psw;
 
+    @JoinColumn(name="contact_id")
+    @OneToOne
+    private UserContact contact;
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void login(Request req){
+        req.session().attribute("user",this);
+    }
+
+    public void logout(Request req){
+        req.session().removeAttribute("user");
+
     }
 
 
@@ -55,5 +69,13 @@ public class User {
 
     public boolean authenticate_user(String password){
         return BCrypt.checkpw(password, this.psw);
+    }
+
+    public UserContact getContact() {
+        return contact;
+    }
+
+    public void setContact(UserContact contact) {
+        this.contact = contact;
     }
 }

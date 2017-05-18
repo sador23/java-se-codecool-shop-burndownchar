@@ -27,14 +27,13 @@ $(document).ready(function(){
 
       $.ajax({
 
-        url:"register_user",
+        url:"/register_user",
         type:"POST",
         data:{"name":name,"psw":psw,"mail":mail},
         dataType:"html",
         success:function () {
-            
-        }  
-
+            location.href ="/";
+        }
           });
     })
 
@@ -44,13 +43,18 @@ $(document).ready(function(){
         var psw=document.getElementById("login_psw").value;
         $.ajax({
 
-            url:"login_user",
+            url:"/login_user",
             type:"POST",
             data:{"name":name,"psw":psw},
             dataType:"html",
             success:function () {
+                location.href ="/";
+            },
+            error:function () {
+                location.href="/login"
 
             }
+
 
         });
     })

@@ -3,10 +3,13 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.entity.User;
+import com.codecool.shop.entity.UserContact;
 import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Person;
 import com.codecool.shop.entity.Product;
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.ModelAndView;
@@ -14,6 +17,8 @@ import spark.Request;
 import spark.Response;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -53,11 +58,36 @@ public class OrderController {
 
     }
 
-    public static ModelAndView addPerson(Request request, Response response) {
+    public static ModelAndView addPerson(Request request, Response response, Session session) {
+        session.beginTransaction();
+
         OrderDaoMem orders = request.session().attribute("order");
         Order currOrder = orders.getOrder();
 
         Person person = new Person();
+
+        UserContact contact=new UserContact();
+
+        contact.setFirstName(request.queryParams("first_name"));
+        contact.setLastName(request.queryParams("last_name"));
+        contact.setPhoneNumber(request.queryParams("phone_number"));
+        contact.setEmailAddress(request.queryParams("email_address"));
+        contact.setShippingCountry(request.queryParams("shipping-country"));
+        contact.setShippingCity(request.queryParams("shipping-city"));
+        contact.setShippingZipCode(request.queryParams("shipping-zip-code"));
+        contact.setShippingAddress(request.queryParams("shipping-address"));
+        contact.setBillingCountry(request.queryParams("billing-country"));
+        contact.setBillingCity(request.queryParams("billing-city"));
+        contact.setBillingZipCode(request.queryParams("billing-zip_code"));
+        contact.setBillingAddress(request.queryParams("billing-address"));
+
+        User user= request.session().attribute("user");
+        user.setContact(contact);
+        session.save(contact);
+        session.save(user);
+        session.getTransaction().commit();
+
+
         person.setFirstName(request.queryParams("first_name"));
         person.setLastName(request.queryParams("last_name"));
         person.setPhoneNumber(request.queryParams("phone_number"));
@@ -72,11 +102,11 @@ public class OrderController {
         person.setBillingAddress(request.queryParams("billing-address"));
         
         currOrder.setOwner(person);
-
+        Map params=new HashMap();
         currOrder.setStatus("checked");
         response.redirect("/order/payment");
         logger.debug("User form filled for order, with name of {} {}",request.queryParams("first_name"),request.queryParams("last_name"));
-        return new ModelAndView(person, "product/payment");
+        return new ModelAndView(params, "product/payment");
     }
 
     public static ModelAndView setPaidStatus(Request request, Response response) {
@@ -87,7 +117,7 @@ public class OrderController {
         System.out.println(currOrder.getStatus());
         response.redirect("/index");
 
-        if(currOrder.getStatus().equals("checked")){
+        if(request.session().attributes().contains("user")){
             return new ModelAndView(response, "product/payment");
         }
         else return ProductController.renderProducts(request,response);

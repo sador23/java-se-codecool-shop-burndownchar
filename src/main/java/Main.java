@@ -1,24 +1,26 @@
 import static spark.Spark.*;
-import com.codecool.shop.controller.CheckoutController;
-import com.codecool.shop.controller.OrderController;
-import com.codecool.shop.controller.ProductController;
-import com.codecool.shop.controller.PaymentController;
+
+import com.codecool.shop.controller.*;
 import com.codecool.shop.dao.*;
 import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.entity.ProductCategory;
 import com.codecool.shop.entity.Supplier;
 import com.codecool.shop.entity.Product;
+import com.codecool.shop.model.Order;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -94,7 +96,9 @@ public class Main {
         get("/", ProductController::renderProducts, new ThymeleafTemplateEngine());
         // Equivalent with above
         get("/index", (Request req, Response res) -> {
-            return new ThymeleafTemplateEngine().render(ProductController.renderProducts(req, res));
+            ModelAndView modelAndView=ProductController.renderProducts(req, res);
+            //setProperties(req);
+            return new ThymeleafTemplateEngine().render(modelAndView);
         });
 
         get ("/:id", (req, res) -> {
@@ -114,7 +118,7 @@ public class Main {
 
         post("/order/checkout/done", (request, response) -> {
 
-            return new ThymeleafTemplateEngine().render( OrderController.addPerson(request, response) );
+            return new ThymeleafTemplateEngine().render( OrderController.addPerson(request, response, session) );
         });
 
         post("/order/payment/done", (request, response) -> {
@@ -172,9 +176,17 @@ public class Main {
         }
     }
 
-    public static void setupDatabaseConnection(){
-
+    public static void setProperties(Request request) throws IOException {
+        Properties properties = new Properties();
+        InputStream inputStream = FileHandler.class.getResourceAsStream("log4j.properties");
+        OutputStream out=new FileOutputStream("./resources/log4j.properties");
+        properties.load(inputStream);
+        OrderDaoMem orders=request.session().attribute("order");
+        Order order=orders.getOrder();
+        String filename="./src/main/resources/logs/" + order.getId()+"_"+System.getProperty("date");
+        properties.setProperty("log4j.appender.FILE.File",filename);
+        properties.store(out,null);
+        out.close();
     }
-
 
 }

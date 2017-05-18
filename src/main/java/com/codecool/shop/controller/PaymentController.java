@@ -11,9 +11,7 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by tomi on 2017.05.04..
- */
+
 public class PaymentController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
@@ -22,12 +20,12 @@ public class PaymentController {
             Order currOrder = orders.getOrder();
             Map params = new HashMap<>();
 
-          if(currOrder.getStatus().equals("checked")){
-                return new ModelAndView(params, "product/payment");
+          if(!req.session().attributes().contains("user")){
+                return new ModelAndView(params, "product/register");
             }
             else {
               logger.debug("Payment started");
-              return ProductController.renderProducts(req,res);
+              return new ModelAndView(params, "product/payment");
           }
 
         }
