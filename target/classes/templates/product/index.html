@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="Codecool" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>BurnDownChart Online Shop</title>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+    <!-- Font awesome CDN -->
+    <script src="https://use.fontawesome.com/99286e9f13.js"></script>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/custom.css" />
+</head>
+
+<body>
+
+<nav class="navbar">
+<div class="container">
+    <a class="navbar-brand" href="/">Welcome to Burndownchart's webshop</a>
+    <div class="navbar-right">
+        <div class="container minicart">
+            <a href="/cart">
+                <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+            </a>
+            <a th:text="${quantity}" id="cart-counter"></a>
+        </div>
+    </div>
+</div>
+</nav>
+
+
+<div class="jumbotron text-center">
+    <h1>Codecool Shop</h1>
+</div>
+
+<div class="container">
+<div class="row">
+    <div class="dropdown">
+        <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select Category
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li class="dropdown-element" th:each="cat,iterationStatus  : ${categories}"><a th:text="${cat.name}" th:href="@{~/categories/{path}(path=${cat.id})}">Category Name</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Select Supplier
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+        <li th:each="sup,iterationStatus  : ${suppliers}" class="supplier-element" th:attr="id=${sup.id}"><a th:text="${sup.name}" th:href="@{~/suppliers/{path}(path=${sup.id})}">Supplier Name</a>
+        </li>
+        </ul>
+    </div>
+</div>
+
+    <div id="products" class="row list-group">
+
+        <div class="item col-xs-4 col-lg-4" th:each="prod,iterStat : ${products}">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading" th:text="${prod.name}">Product name</h4>
+                    <p class="group inner list-group-item-text" th:text="${prod.description}">Product description... </p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" id="getCurrProd" th:name="'/' + ${prod.id}">Add to cart</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="footer :: copy"></div>
+
+<script src="/js/index.js"></script>
+
+</body>
+</html>
