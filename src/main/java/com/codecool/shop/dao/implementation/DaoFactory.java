@@ -4,7 +4,11 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 
-
+/**
+ * Creates objects. Has a default state of sql.
+ * If the state is sql, returns Database related DAO instances
+ * Else it uses memory, and returns DAO memory instances
+ */
 public class DaoFactory {
 
     private static String state="sql";

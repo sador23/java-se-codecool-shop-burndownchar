@@ -9,14 +9,20 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
+
 /**
- * Created by sador on 18.05.17.
+ * Email sending and configuration
  */
 public class Email {
 
+    /**
+     * Given the inputs, it sends the email using smtp
+     * @param msg
+     * @param subject
+     */
     public static void sendEmail(String msg, String subject) {
-        String from="adorjns@gmail.com";
-        String to="adorjns@gmail.com";
+        String from="x.com";
+        String to="y.com";
         String host="localhost";
         Properties properties = System.getProperties();
         //properties.setProperty("mail.smtp.host", host);

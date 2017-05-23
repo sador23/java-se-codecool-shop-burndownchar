@@ -11,10 +11,18 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Handles the payment
+ */
 public class PaymentController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
+    /**
+     * Renders the payment form
+     * @param req
+     * @param res
+     * @return
+     */
         public static ModelAndView renderPayment(Request req, Response res) {
             OrderDaoMem orders = req.session().attribute("order");
             Order currOrder = orders.getOrder();

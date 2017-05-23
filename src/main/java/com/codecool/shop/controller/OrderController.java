@@ -22,11 +22,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
+/**
+ * Handles the order process of the website
+ */
 public class OrderController {
 
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
+    /**
+     *Adds an item to the cart
+     * @param req
+     * @param res
+     * @return
+     */
     public static ModelAndView addProductToOrder(Request req, Response res) {
         OrderDaoMem orderDaoMem = req.session().attribute("order");
         ProductDao productDaoMem = DaoFactory.createProductDao();
@@ -59,6 +67,13 @@ public class OrderController {
 
     }
 
+    /**
+     * If the form is filled, creates a new user
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     */
     public static ModelAndView addPerson(Request request, Response response, Session session) {
         session.beginTransaction();
 
@@ -110,6 +125,12 @@ public class OrderController {
         return new ModelAndView(params, "product/payment");
     }
 
+    /**
+     * Upon successful payment, sets the status to paid
+     * @param request
+     * @param response
+     * @return
+     */
     public static ModelAndView setPaidStatus(Request request, Response response) {
         OrderDaoMem orders = request.session().attribute("order");
         Order currOrder = orders.getOrder();

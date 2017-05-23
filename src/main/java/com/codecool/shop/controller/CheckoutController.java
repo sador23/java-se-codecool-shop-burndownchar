@@ -9,13 +9,20 @@ import spark.Response;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
- * Created by tomi on 2017.05.03..
+ * Handles the checkout process
  */
 public class CheckoutController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
+    /**
+     * Renders the checkout page
+     * @param req
+     * @param res
+     * @return
+     */
     public static ModelAndView renderCheckoutForm(Request req, Response res) {
         logger.debug("Checkout started");
         Map params = new HashMap<>();

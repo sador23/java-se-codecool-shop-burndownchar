@@ -19,6 +19,9 @@ import spark.ModelAndView;
 import javax.persistence.Query;
 import java.util.*;
 
+/**
+ * Collection of Product related logic
+ */
 public class ProductController {
 
     static ProductDao productDataStore = DaoFactory.createProductDao();
@@ -29,6 +32,12 @@ public class ProductController {
     private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
 
+    /**
+     * Renders the products on the main page
+     * @param req
+     * @param res
+     * @return
+     */
     public static ModelAndView renderProducts(Request req, Response res) {
         if(!req.session().attributes().contains("order")) {
             req.session().attribute("order",OrderDaoMem.getInstance());
@@ -49,6 +58,13 @@ public class ProductController {
         return new ModelAndView(params,"product/register");
     }
 
+    /**
+     * Register a new user, adds it to DB as well
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     */
     public static ModelAndView register_user(Request request, Response response,Session session){
         session.beginTransaction();
         User user=new User(request.queryParams("name"),request.queryParams("mail"),BCrypt.hashpw( request.queryParams("psw"), BCrypt.gensalt(10)));
@@ -58,6 +74,13 @@ public class ProductController {
         return new ProductController().renderProducts(request,response);
     }
 
+    /**
+     * User login, sets the session to the current user
+     * @param request
+     * @param response
+     * @param session
+     * @return
+     */
     public static ModelAndView login_user(Request request, Response response, Session session){
         String input_name= request.queryParams("name");
         System.out.println(input_name);
@@ -74,6 +97,12 @@ public class ProductController {
     }
 
 
+    /**
+     * Renders the shopping cart page with items
+     * @param req
+     * @param res
+     * @return
+     */
     public static ModelAndView renderCart(Request req, Response res){
         Map params= new HashMap<>();
         req.session().attribute("order");
@@ -96,6 +125,12 @@ public class ProductController {
     }
 
 
+    /**
+     * Delete item from card with ID
+     * @param req
+     * @param res
+     * @return
+     */
     public static ModelAndView deleteItem(Request req, Response res){
         String product_id=req.params(":id");
         OrderDaoMem orders=req.session().attribute("order");
@@ -110,6 +145,12 @@ public class ProductController {
         return ProductController.renderCart(req,res);
     }
 
+    /**
+     * Edit's an item's quantity with ID
+     * @param req
+     * @param res
+     * @return
+     */
     public static ModelAndView editItem(Request req, Response res){
         OrderDaoMem orderDaoMem = req.session().attribute("order");
         ProductDao productDaoMem = ProductDaoMem.getInstance();
